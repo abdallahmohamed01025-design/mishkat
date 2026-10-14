@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مكتبة مشكاة</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--gold:#c9a961;--gold-dark:#a8894a;--olive:#4a5d3a;--olive-dark:#2f3d24;--cream:#faf6ef;--cream-dark:#f0e9dc;--text:#2c2c2c;--muted:#7a7a7a;--green:#2f855a;--red:#c53030;--shadow:0 2px 8px rgba(74,93,58,.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:var(--cream);color:var(--text);padding:12px;padding-bottom:80px;min-height:100vh}
+.header{background:linear-gradient(135deg,var(--olive),var(--olive-dark));color:#fff;padding:16px;border-radius:14px;text-align:center;margin-bottom:14px;box-shadow:var(--shadow)}
+.header h1{font-size:24px;margin-bottom:4px;color:var(--gold);font-weight:700}
+.header p{font-size:13px;opacity:.9}
+.tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.tab{flex:1;min-width:85px;padding:12px 8px;background:#fff;border:1px solid var(--cream-dark);border-radius:10px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--olive-dark);transition:.2s;box-shadow:var(--shadow)}
+.tab.active{background:var(--gold);color:#fff;border-color:var(--gold-dark)}
+.tab:hover:not(.active){background:var(--cream-dark)}
+.card{background:#fff;padding:16px;border-radius:12px;margin-bottom:12px;box-shadow:var(--shadow);border:1px solid var(--cream-dark)}
+h2{font-size:17px;margin-bottom:12px;color:var(--olive-dark);border-right:4px solid var(--gold);padding-right:10px}
+label{display:block;font-size:13px;margin-bottom:4px;color:var(--muted);font-weight:600}
+input,select,textarea{width:100%;padding:10px;border:1px solid var(--cream-dark);border-radius:8px;font-size:14px;margin-bottom:10px;font-family:inherit;background:#fff}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);border-color:transparent}
+button{padding:11px 18px;background:var(--olive);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin:4px 4px 4px 0;transition:.2s}
+button:hover{background:var(--olive-dark)}
+button:disabled{opacity:.5;cursor:not-allowed}
+button.gold{background:var(--gold)}button.gold:hover{background:var(--gold-dark)}
+button.danger{background:var(--red)}
+button.success{background:var(--green)}
+button.gray{background:#a0aec0}
+button.small{padding:6px 10px;font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+th,td{padding:9px 6px;border-bottom:1px solid var(--cream-dark);text-align:right}
+th{background:var(--cream);color:var(--olive-dark);font-weight:700;font-size:12px}
+tr:hover{background:var(--cream)}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+.stat{background:#fff;padding:14px;border-radius:10px;border:1px solid var(--cream-dark);box-shadow:var(--shadow);border-top:3px solid var(--gold)}
+.stat .label{font-size:12px;color:var(--muted);margin-bottom:4px}
+.stat .value{font-size:20px;font-weight:700;color:var(--olive-dark)}
+.stat.profit{border-top-color:var(--green)}
+.stat.profit .value{color:var(--green)}
+.empty{text-align:center;padding:30px;color:var(--muted);font-size:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row>*{flex:1;min-width:130px}
+.actions button{padding:5px 9px;font-size:12px;margin:2px}
+.invoice-item-row{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:6px;align-items:end;margin-bottom:8px}
+.invoice-item-row input,.invoice-item-row select{margin-bottom:0}
+.invoice-box{background:#fff;padding:24px;border-radius:12px;border:2px solid var(--gold);margin-top:12px}
+.invoice-box h2{text-align:center;color:var(--olive-dark);border:none;padding:0;font-size:22px;margin-bottom:6px}
+.invoice-logo{text-align:center;margin-bottom:14px;font-size:13px;color:var(--muted)}
+.low-stock{background:#fff5f5;color:var(--red);font-weight:700;padding:3px 8px;border-radius:6px;font-size:11px}
+.search-results{position:absolute;background:#fff;border:1px solid var(--gold);border-radius:8px;max-height:200px;overflow-y:auto;width:100%;z-index:100;box-shadow:var(--shadow)}
+.search-results div{padding:10px;cursor:pointer;border-bottom:1px solid var(--cream-dark);font-size:13px}
+.search-results div:hover{background:var(--cream)}
+.relative{position:relative}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
+.badge.gold{background:var(--gold);color:#fff}
+.badge.green{background:var(--green);color:#fff}
+.badge.red{background:var(--red);color:#fff}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--olive-dark);color:#fff;padding:12px 24px;border-radius:10px;z-index:1000;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.2);opacity:0;transition:.3s;pointer-events:none}
+.toast.show{opacity:1}
+@media print{body *{visibility:hidden}.invoice-box,.invoice-box *{visibility:visible}.invoice-box{position:absolute;top:0;right:0;left:0;border:none}button{display:none}}
+@media(max-width:600px){.invoice-item-row{grid-template-columns:1fr 1fr}.invoice-item-row>select{grid-column:1/-1}body{padding:8px}.tab{font-size:11px;padding:10px 4px}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🏮 مكتبة مشكاة</h1>
+  <p>للمصاحف والكتب الشرعية</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('home',event)">🏠 الرئيسية</div>
+  <div class="tab" onclick="showTab('books',event)">📚 الكتب</div>
+  <div class="tab" onclick="showTab('customers',event)">👥 العملاء</div>
+  <div class="tab" onclick="showTab('newInvoice',event)">➕ فاتورة</div>
+  <div class="tab" onclick="showTab('invoices',event)">🧾 السجل</div>
+  <div class="tab" onclick="showTab('reports',event)">📊 التقارير</div>
+</div>
+
+<div id="home" class="page">
+  <div class="stat-grid" id="stats"></div>
+  <div class="card"><h2>📈 آخر 10 فواتير</h2><div id="recentInvoices"></div></div>
+</div>
+
+<div id="books" class="page" style="display:none">
+  <div class="card">
+    <h2>➕ إضافة كتاب جديد</h2>
+    <div class="row">
+      <div><label>عنوان الكتاب *</label><input id="bTitle"></div>
+      <div><label>المؤلف</label><input id="bAuthor"></div>
+    </div>
+    <div class="row">
+      <div><label>سعر البيع (ج.م)</label><input id="bPrice" type="number" placeholder="0"></div>
+      <div><label>تكلفة الكتاب (ج.م)</label><input id="bCost" type="number" placeholder="0"></div>
+      <div><label>تكلفة تغليف (ج.م)</label><input id="bPack" type="number" placeholder="0"></div>
+    </div>
+    <div class="row">
+      <div><label>الكمية بالمخزون</label><input id="bStock" type="number" placeholder="0"></div>
+      <div><label>تنبيه عند وصول المخزون لـ</label><input id="bAlert" type="number" placeholder="3"></div>
+    </div>
+    <button class="gold" onclick="addBook()">💾 حفظ الكتاب</button>
+    <button class="gray" onclick="resetBookForm()">🔄 تفريغ</button>
+  </div>
+  <div class="card">
+    <h2>📖 قائمة الكتب</h2>
+    <input id="booksSearch" placeholder="🔍 ابحث عن كتاب..." oninput="renderBooks()">
+    <div id="booksList"></div>
+  </div>
+</div>
+
+<div id="customers" class="page" style="display:none">
+  <div class="card">
+    <h2>➕ إضافة عميل جديد</h2>
+    <div class="row">
+      <div><label>اسم العميل *</label><input id="cName"></div>
+      <div><label>رقم الجوال</label><input id="cPhone"></div>
+    </div>
+    <div class="row">
+      <div><label>البريد الإلكتروني</label><input id="cEmail"></div>
+      <div><label>ملاحظات</label><input id="cNotes"></div>
+    </div>
+    <button class="gold" onclick="addCustomer()">💾 حفظ العميل</button>
+  </div>
+  <div class="card">
+    <h2>👥 قائمة العملاء</h2>
+    <input id="customersSearch" placeholder="🔍 ابحث بالاسم أو الجوال..." oninput="renderCustomers()">
+    <div id="customersList"></div>
+  </div>
+</div>
+
+<div id="newInvoice" class="page" style="display:none">
+  <div class="card">
+    <h2>🧾 فاتورة جديدة</h2>
+    <label>العميل</label>
+    <div class="relative">
+      <input id="invCustomerSearch" placeholder="🔍 اكتب اسم العميل..." autocomplete="off" oninput="searchCustomer()">
+      <div id="customerResults"></div>
+    </div>
+    <div id="selectedCustomer" style="margin-bottom:12px"></div>
+    <button class="small gray" onclick="useWalkIn()">👤 عميل نقدي</button>
+    <button class="small gold" onclick="quickAddCustomer()">➕ عميل جديد سريع</button>
+    <hr style="margin:16px 0;border:none;border-top:1px dashed var(--cream-dark)">
+    <h2>📚 بنود الفاتورة</h2>
+    <div id="itemsList"></div>
+    <button class="gold" onclick="addItem()">➕ إضافة كتاب</button>
+    <hr style="margin:16px 0;border:none;border-top:1px dashed var(--cream-dark)">
+    <div class="row">
+      <div><label>الشحن (ج.م) - اختياري</label><input id="invShipping" type="number" placeholder="0" oninput="updateTotals()"></div>
+      <div><label>ملاحظات</label><input id="invNotes" placeholder="شكراً لتعاملكم معنا"></div>
+    </div>
+    <div id="totalsBox" style="background:var(--cream);padding:14px;border-radius:10px;margin:12px 0;border:1px dashed var(--gold)"></div>
+    <button class="success" onclick="saveInvoice()">💾 حفظ الفاتورة وطبعها</button>
+    <button class="gray" onclick="resetInvoice()">🔄 فاتورة جديدة</button>
+  </div>
+  <div id="invoiceOutput"></div>
+</div>
+
+<div id="invoices" class="page" style="display:none">
+  <div class="card">
+    <h2>🧾 سجل الفواتير</h2>
+    <input id="invoicesSearch" placeholder="🔍 ابحث برقم الفاتورة أو اسم العميل..." oninput="renderInvoices()">
+    <div id="invoicesList"></div>
+  </div>
+</div>
+
+<div id="reports" class="page" style="display:none">
+  <div class="card">
+    <h2>📊 التقارير</h2>
+    <div class="row">
+      <div><label>من تاريخ</label><input type="date" id="reportFrom"></div>
+      <div><label>إلى تاريخ</label><input type="date" id="reportTo"></div>
+    </div>
+    <button class="gold" onclick="generateReport()">📊 عرض التقرير</button>
+    <button class="gray" onclick="exportReport()">📥 تصدير Excel</button>
+    <button class="gray" onclick="resetReportDates()">🔄 كل الفترات</button>
+  </div>
+  <div id="reportOutput"></div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+  <script>
+
+    // ============ Supabase ============
+const SUPABASE_URL = 'https://peugghkprnwhlmpjlfcn.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_oDhyYeR-i2baV17b-M7RsA_ZJdtZgtU';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ============ State ============
+let books = [];
+let customers = [];
+let invoices = [];
+let currentInvoice = { customer: null, items: [] };
+
+// ============ Helpers ============
+function fmt(n) {
+  const num = Number(n) || 0;
+  return num.toLocaleString('ar-EG', { maximumFractionDigits: 2 });
+}
+function toast(msg, color) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = color || 'var(--olive-dark)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+function formatDate(d) {
+  if (!d) return '';
+  return new Date(d).toLocaleDateString('ar-EG');
+}
+
+// ============ Tabs ============
+function showTab(id, e) {
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).style.display = 'block';
+  if (e && e.target) e.target.classList.add('active');
+  if (id === 'home') renderHome();
+  if (id === 'books') renderBooks();
+  if (id === 'customers') renderCustomers();
+  if (id === 'invoices') renderInvoices();
+  if (id === 'newInvoice') initNewInvoice();
+}
+
+// ============ Load Data ============
+async function loadAll() {
+  const [b, c, inv] = await Promise.all([
+    sb.from('books').select('*').order('created_at', { ascending: false }),
+    sb.from('customers').select('*').order('created_at', { ascending: false }),
+    sb.from('invoices').select('*').order('created_at', { ascending: false })
+  ]);
+  books = b.data || [];
+  customers = c.data || [];
+  invoices = inv.data || [];
+}
+
+// ============ Books ============
+function resetBookForm() {
+  ['bTitle','bAuthor','bPrice','bCost','bPack','bStock','bAlert'].forEach(id => document.getElementById(id).value = '');
+}
+async function addBook() {
+  const title = document.getElementById('bTitle').value.trim();
+  if (!title) return toast('اكتب عنوان الكتاب', 'var(--red)');
+  const book = {
+    title,
+    author: document.getElementById('bAuthor').value.trim(),
+    sell_price: parseFloat(document.getElementById('bPrice').value) || 0,
+    base_cost: parseFloat(document.getElementById('bCost').value) || 0,
+    packaging_cost: parseFloat(document.getElementById('bPack').value) || 0,
+    stock: parseInt(document.getElementById('bStock').value) || 0,
+    low_stock_alert: parseInt(document.getElementById('bAlert').value) || 3
+  };
+  const { error } = await sb.from('books').insert(book);
+  if (error) return toast('خطأ: ' + error.message, 'var(--red)');
+  toast('✅ تم حفظ الكتاب');
+  resetBookForm();
+  await loadAll();
+  renderBooks();
+}
+async function deleteBook(id) {
+  if (!confirm('حذف هذا الكتاب؟')) return;
+  await sb.from('books').delete().eq('id', id);
+  toast('تم الحذف');
+  await loadAll();
+  renderBooks();
+}
+function renderBooks() {
+  const el = document.getElementById('booksList');
+  const search = (document.getElementById('booksSearch').value || '').toLowerCase();
+  let list = books;
+  if (search) list = books.filter(b => b.title.toLowerCase().includes(search) || (b.author || '').toLowerCase().includes(search));
+  if (list.length === 0) { el.innerHTML = '<div class="empty">لا توجد كتب</div>'; return; }
+  let html = '<table><tr><th>العنوان</th><th>سعر البيع</th><th>التكلفة الكلية</th><th>الربح</th><th>المخزون</th><th></th></tr>';
+  list.forEach(b => {
+    const totalCost = (Number(b.base_cost) || 0) + (Number(b.packaging_cost) || 0);
+    const profit = (Number(b.sell_price) || 0) - totalCost;
+    const stockBadge = b.stock <= (b.low_stock_alert || 3) ? `<span class="low-stock">⚠️ ${b.stock}</span>` : b.stock;
+    html += `<tr>
+      <td><b>${b.title}</b>${b.author ? '<br><small style="color:var(--muted)">' + b.author + '</small>' : ''}</td>
+      <td>${fmt(b.sell_price)}</td>
+      <td style="color:var(--muted)">${fmt(totalCost)}</td>
+      <td style="color:var(--green);font-weight:700">${fmt(profit)}</td>
+      <td>${stockBadge}</td>
+      <td class="actions"><button class="danger small" onclick="deleteBook('${b.id}')">حذف</button></td>
+    </tr>`;
+  });
+  html += '</table>';
+  el.innerHTML = html;
+}
+
+// ============ Customers ============
+async function addCustomer() {
+  const name = document.getElementById('cName').value.trim();
+  if (!name) return toast('اكتب اسم العميل', 'var(--red)');
+  const customer = {
+    name,
+    phone: document.getElementById('cPhone').value.trim(),
+    email: document.getElementById('cEmail').value.trim(),
+    notes: document.getElementById('cNotes').value.trim()
+  };
+  const { error } = await sb.from('customers').insert(customer);
+  if (error) return toast('خطأ: ' + error.message, 'var(--red)');
+  toast('✅ تم حفظ العميل');
+  ['cName','cPhone','cEmail','cNotes'].forEach(id => document.getElementById(id).value = '');
+  await loadAll();
+  renderCustomers();
+}
+async function deleteCustomer(id) {
+  if (!confirm('حذف هذا العميل؟')) return;
+  await sb.from('customers').delete().eq('id', id);
+  toast('تم الحذف');
+  await loadAll();
+  renderCustomers();
+}
+function customerStats(customerId) {
+  const inv = invoices.filter(i => i.customer_id === customerId);
+  return {
+    count: inv.length,
+    total: inv.reduce((a, i) => a + (Number(i.total) || 0), 0),
+    last: inv.length > 0 ? inv[0].created_at : null
+  };
+}
+function renderCustomers() {
+  const el = document.getElementById('customersList');
+  const search = (document.getElementById('customersSearch').value || '').toLowerCase();
+  let list = customers;
+  if (search) list = customers.filter(c =>
+    c.name.toLowerCase().includes(search) ||
+    (c.phone || '').includes(search) ||
+    (c.email || '').toLowerCase().includes(search)
+  );
+  if (list.length === 0) { el.innerHTML = '<div class="empty">لا يوجد عملاء</div>'; return; }
+  let html = '<table><tr><th>الاسم</th><th>الجوال</th><th>عدد الفواتير</th><th>الإجمالي</th><th></th></tr>';
+  list.forEach(c => {
+    const s = customerStats(c.id);
+    html += `<tr>
+      <td><b>${c.name}</b>${c.email ? '<br><small style="color:var(--muted)">' + c.email + '</small>' : ''}</td>
+      <td>${c.phone || '-'}</td>
+      <td><span class="badge gold">${s.count}</span></td>
+      <td style="color:var(--olive-dark);font-weight:700">${fmt(s.total)} ج.م</td>
+      <td class="actions"><button class="danger small" onclick="deleteCustomer('${c.id}')">حذف</button></td>
+    </tr>`;
+  });
+  html += '</table>';
+  el.innerHTML = html;
+}
+
+// ============ New Invoice ============
+function initNewInvoice() {
+  renderSelectedCustomer();
+  renderItems();
+  updateTotals();
+}
+function searchCustomer() {
+  const q = document.getElementById('invCustomerSearch').value.toLowerCase().trim();
+  const box = document.getElementById('customerResults');
+  if (!q) { box.innerHTML = ''; return; }
+  const matches = customers.filter(c =>
+    c.name.toLowerCase().includes(q) || (c.phone || '').includes(q)
+  ).slice(0, 8);
+  if (matches.length === 0) {
+    box.innerHTML = '<div class="search-results"><div onclick="quickAddCustomer()">➕ إضافة عميل جديد: ' + q + '</div></div>';
+    return;
+  }
+  let html = '<div class="search-results">';
+  matches.forEach(c => {
+    html += `<div onclick="selectCustomer('${c.id}')">👤 <b>${c.name}</b> ${c.phone ? ' - ' + c.phone : ''}</div>`;
+  });
+  html += '</div>';
+  box.innerHTML = html;
+}
+function selectCustomer(id) {
+  currentInvoice.customer = customers.find(c => c.id === id);
+  document.getElementById('invCustomerSearch').value = '';
+  document.getElementById('customerResults').innerHTML = '';
+  renderSelectedCustomer();
+}
+function useWalkIn() {
+  currentInvoice.customer = { id: null, name: 'عميل نقدي' };
+  renderSelectedCustomer();
+}
+async function quickAddCustomer() {
+  const searchBox = document.getElementById('invCustomerSearch');
+  const name = prompt('اسم العميل الجديد:', searchBox.value || '');
+  if (!name) return;
+  const phone = prompt('رقم الجوال (اختياري):', '') || '';
+  const { data, error } = await sb.from('customers').insert({ name, phone }).select().single();
+  if (error) return toast('خطأ: ' + error.message, 'var(--red)');
+  await loadAll();
+  selectCustomer(data.id);
+  toast('✅ تم إضافة العميل');
+}
+function renderSelectedCustomer() {
+  const el = document.getElementById('selectedCustomer');
+  if (!currentInvoice.customer) { el.innerHTML = ''; return; }
+  const c = currentInvoice.customer;
+  const s = c.id ? customerStats(c.id) : { count: 0, total: 0 };
+  el.innerHTML = `<div style="background:var(--cream);padding:10px;border-radius:8px;border-right:4px solid var(--gold)">
+    👤 <b>${c.name}</b>
+    ${c.id ? `<br><small style="color:var(--muted)">عدد فواتيره: ${s.count} | إجمالي مشترياته: ${fmt(s.total)} ج.م</small>` : ''}
+  </div>`;
+}
+function addItem() {
+  currentInvoice.items.push({ book_id: '', title: '', price: 0, cost: 0, qty: 1 });
+  renderItems();
+}
+function removeItem(idx) {
+  currentInvoice.items.splice(idx, 1);
+  renderItems();
+}
+function updateItem(idx, field, value) {
+  currentInvoice.items[idx][field] = value;
+  updateTotals();
+}
+function renderItems() {
+  const el = document.getElementById('itemsList');
+  if (currentInvoice.items.length === 0) {
+    el.innerHTML = '<div class="empty">اضغط "إضافة كتاب" لبدء الفاتورة</div>';
+    return;
+  }
+  let html = '';
+  currentInvoice.items.forEach((it, idx) => {
+    html += `<div class="invoice-item-row">
+      <select onchange="onBookSelect(${idx}, this.value)">
+        <option value="">-- اختر كتاب --</option>
+        ${books.map(b => `<option value="${b.id}" ${it.book_id === b.id ? 'selected' : ''}>${b.title} (متوفر: ${b.stock}) - ${fmt(b.sell_price)} ج.م</option>`).join('')}
+      </select>
+      <input type="number" placeholder="الكمية" value="${it.qty}" min="1" oninput="updateItem(${idx}, 'qty', parseInt(this.value) || 1)">
+      <input type="number" placeholder="السعر" value="${it.price}" oninput="updateItem(${idx}, 'price', parseFloat(this.value) || 0)">
+      <button class="danger small" onclick="removeItem(${idx})">❌</button>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+function onBookSelect(idx, bookId) {
+  const book = books.find(b => b.id === bookId);
+  if (!book) return;
+  currentInvoice.items[idx].book_id = book.id;
+  currentInvoice.items[idx].title = book.title;
+  currentInvoice.items[idx].price = book.sell_price;
+  currentInvoice.items[idx].cost = (Number(book.base_cost) || 0) + (Number(book.packaging_cost) || 0);
+  renderItems();
+}
+function calcTotals() {
+  const subtotal = currentInvoice.items.reduce((a, i) => a + (i.price * i.qty), 0);
+  const shipping = parseFloat(document.getElementById('invShipping').value) || 0;
+  const total = subtotal + shipping;
+  const totalCost = currentInvoice.items.reduce((a, i) => a + (i.cost * i.qty), 0);
+  const profit = subtotal - totalCost;
+  return { subtotal, shipping, total, totalCost, profit };
+}
+function updateTotals() {
+  const t = calcTotals();
+  document.getElementById('totalsBox').innerHTML = `
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>إجمالي البنود:</span><b>${fmt(t.subtotal)} ج.م</b></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>الشحن:</span><b>${fmt(t.shipping)} ج.م</b></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:6px;padding-top:6px;border-top:1px solid var(--cream-dark)"><span><b>الإجمالي النهائي:</b></span><b style="color:var(--olive-dark);font-size:18px">${fmt(t.total)} ج.م</b></div>
+    <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--green)"><span>الربح المتوقع:</span><b>${fmt(t.profit)} ج.م</b></div>
+  `;
+}
+    async function saveInvoice() {
+  if (!currentInvoice.customer) return toast('اختر عميل أو "عميل نقدي"', 'var(--red)');
+  if (currentInvoice.items.length === 0) return toast('أضف كتاب واحد على الأقل', 'var(--red)');
+  for (let i = 0; i < currentInvoice.items.length; i++) {
+    if (!currentInvoice.items[i].book_id) return toast('اختر كتاب في كل بند', 'var(--red)');
+    if (currentInvoice.items[i].qty < 1) return toast('الكمية لازم 1 على الأقل', 'var(--red)');
+  }
+  const t = calcTotals();
+  const inv = {
+    customer_id: currentInvoice.customer.id || null,
+    customer_name: currentInvoice.customer.name,
+    subtotal: t.subtotal,
+    shipping: t.shipping,
+    total: t.total,
+    total_cost: t.totalCost,
+    profit: t.profit,
+    notes: document.getElementById('invNotes').value.trim() || 'شكراً لتعاملكم معنا'
+  };
+  const { data: invData, error: invErr } = await sb.from('invoices').insert(inv).select().single();
+  if (invErr) return toast('خطأ: ' + invErr.message, 'var(--red)');
+
+  const items = currentInvoice.items.map(it => ({
+    invoice_id: invData.id,
+    book_id: it.book_id,
+    book_title: it.title,
+    quantity: it.qty,
+    unit_price: it.price,
+    unit_cost: it.cost,
+    line_total: it.price * it.qty
+  }));
+  const { error: itemsErr } = await sb.from('invoice_items').insert(items);
+  if (itemsErr) return toast('خطأ في البنود: ' + itemsErr.message, 'var(--red)');
+
+  for (const it of currentInvoice.items) {
+    const book = books.find(b => b.id === it.book_id);
+    if (book) {
+      await sb.from('books').update({ stock: Math.max(0, book.stock - it.qty) }).eq('id', book.id);
+    }
+  }
+
+  showInvoiceForPrint(invData, items);
+  await loadAll();
+  toast('✅ تم حفظ الفاتورة');
+}
+
+function showInvoiceForPrint(inv, items) {
+  const el = document.getElementById('invoiceOutput');
+  el.innerHTML = `
+    <div class="invoice-box" id="printableInvoice">
+      <div class="invoice-logo">🏮</div>
+      <h2>مكتبة مشكاة</h2>
+      <p style="text-align:center;color:var(--muted);margin-bottom:16px;font-size:13px">للمصاحف والكتب الشرعية</p>
+      <hr style="border:none;border-top:2px solid var(--gold);margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:14px;font-size:13px">
+        <div><b>فاتورة رقم:</b> ${inv.invoice_number}</div>
+        <div><b>التاريخ:</b> ${formatDate(inv.created_at)}</div>
+      </div>
+      <div style="margin-bottom:14px;font-size:14px"><b>العميل:</b> ${inv.customer_name}</div>
+      <table style="margin-bottom:14px">
+        <tr><th>الكتاب</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr>
+        ${items.map(it => `<tr>
+          <td>${it.book_title}</td>
+          <td>${it.quantity}</td>
+          <td>${fmt(it.unit_price)}</td>
+          <td>${fmt(it.line_total)}</td>
+        </tr>`).join('')}
+      </table>
+      <div style="text-align:left;margin-top:14px;font-size:14px">
+        <div style="margin-bottom:4px"><b>الإجمالي:</b> ${fmt(inv.subtotal)} ج.م</div>
+        ${inv.shipping > 0 ? `<div style="margin-bottom:4px"><b>الشحن:</b> ${fmt(inv.shipping)} ج.م</div>` : ''}
+        <div style="font-size:18px;color:var(--olive-dark);border-top:2px solid var(--gold);padding-top:8px;margin-top:8px"><b>المجموع النهائي: ${fmt(inv.total)} ج.م</b></div>
+      </div>
+      <p style="text-align:center;margin-top:20px;color:var(--olive-dark);font-weight:600">${inv.notes || ''}</p>
+      <div style="text-align:center;margin-top:16px">
+        <button class="gold" onclick="window.print()">🖨️ طباعة الفاتورة</button>
+      </div>
+    </div>
+  `;
+  el.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetInvoice() {
+  currentInvoice = { customer: null, items: [] };
+  document.getElementById('invCustomerSearch').value = '';
+  document.getElementById('invShipping').value = '';
+  document.getElementById('invNotes').value = '';
+  document.getElementById('customerResults').innerHTML = '';
+  document.getElementById('invoiceOutput').innerHTML = '';
+  renderSelectedCustomer();
+  renderItems();
+  updateTotals();
+}
+
+// ============ Invoices List ============
+function renderInvoices() {
+  const el = document.getElementById('invoicesList');
+  const search = (document.getElementById('invoicesSearch').value || '').toLowerCase();
+  let list = invoices;
+  if (search) list = invoices.filter(i =>
+    (i.customer_name || '').toLowerCase().includes(search) ||
+    String(i.invoice_number).includes(search)
+  );
+  if (list.length === 0) { el.innerHTML = '<div class="empty">لا توجد فواتير</div>'; return; }
+  let html = '<table><tr><th>#</th><th>التاريخ</th><th>العميل</th><th>الإجمالي</th><th>الربح</th></tr>';
+  list.forEach(i => {
+    html += `<tr>
+      <td><b>${i.invoice_number}</b></td>
+      <td>${formatDate(i.created_at)}</td>
+      <td>${i.customer_name}</td>
+      <td style="font-weight:700">${fmt(i.total)} ج.م</td>
+      <td style="color:var(--green);font-weight:700">${fmt(i.profit)} ج.م</td>
+    </tr>`;
+  });
+  html += '</table>';
+  el.innerHTML = html;
+}
+
+// ============ Home ============
+function renderHome() {
+  const todayStr = new Date().toDateString();
+  const monthStr = new Date().getMonth();
+  const todayInv = invoices.filter(i => new Date(i.created_at).toDateString() === todayStr);
+  const monthInv = invoices.filter(i => new Date(i.created_at).getMonth() === monthStr);
+  const todayRev = todayInv.reduce((a, i) => a + (Number(i.total) || 0), 0);
+  const todayProfit = todayInv.reduce((a, i) => a + (Number(i.profit) || 0), 0);
+  const monthRev = monthInv.reduce((a, i) => a + (Number(i.total) || 0), 0);
+  const monthProfit = monthInv.reduce((a, i) => a + (Number(i.profit) || 0), 0);
+  const totalRev = invoices.reduce((a, i) => a + (Number(i.total) || 0), 0);
+  const totalProfit = invoices.reduce((a, i) => a + (Number(i.profit) || 0), 0);
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="label">مبيعات اليوم</div><div class="value">${fmt(todayRev)} ج.م</div></div>
+    <div class="stat profit"><div class="label">ربح اليوم</div><div class="value">${fmt(todayProfit)} ج.م</div></div>
+    <div class="stat"><div class="label">مبيعات الشهر</div><div class="value">${fmt(monthRev)} ج.م</div></div>
+    <div class="stat profit"><div class="label">ربح الشهر</div><div class="value">${fmt(monthProfit)} ج.م</div></div>
+    <div class="stat"><div class="label">إجمالي المبيعات</div><div class="value">${fmt(totalRev)} ج.م</div></div>
+    <div class="stat profit"><div class="label">إجمالي الأرباح</div><div class="value">${fmt(totalProfit)} ج.م</div></div>
+    <div class="stat"><div class="label">عدد الكتب</div><div class="value">${books.length}</div></div>
+    <div class="stat"><div class="label">عدد الفواتير</div><div class="value">${invoices.length}</div></div>
+  `;
+  const el = document.getElementById('recentInvoices');
+  if (invoices.length === 0) { el.innerHTML = '<div class="empty">لا توجد فواتير بعد</div>'; return; }
+  let html = '<table><tr><th>#</th><th>العميل</th><th>الإجمالي</th><th>الربح</th></tr>';
+  invoices.slice(0, 10).forEach(i => {
+    html += `<tr>
+      <td>${i.invoice_number}</td>
+      <td>${i.customer_name}</td>
+      <td>${fmt(i.total)} ج.م</td>
+      <td style="color:var(--green);font-weight:700">${fmt(i.profit)} ج.م</td>
+    </tr>`;
+  });
+  html += '</table>';
+  el.innerHTML = html;
+}
+
+// ============ Reports ============
+function resetReportDates() {
+  document.getElementById('reportFrom').value = '';
+  document.getElementById('reportTo').value = '';
+  document.getElementById('reportOutput').innerHTML = '';
+}
+function getFilteredInvoices() {
+  const from = document.getElementById('reportFrom').value;
+  const to = document.getElementById('reportTo').value;
+  let list = invoices;
+  if (from) list = list.filter(i => new Date(i.created_at) >= new Date(from));
+  if (to) list = list.filter(i => new Date(i.created_at) <= new Date(to + 'T23:59:59'));
+  return list;
+}
+function generateReport() {
+  const list = getFilteredInvoices();
+  if (list.length === 0) {
+    document.getElementById('reportOutput').innerHTML = '<div class="card"><div class="empty">لا توجد فواتير في هذه الفترة</div></div>';
+    return;
+  }
+  const totalRev = list.reduce((a, i) => a + (Number(i.total) || 0), 0);
+  const totalProfit = list.reduce((a, i) => a + (Number(i.profit) || 0), 0);
+  const totalCost = list.reduce((a, i) => a + (Number(i.total_cost) || 0), 0);
+  const totalShip = list.reduce((a, i) => a + (Number(i.shipping) || 0), 0);
+  document.getElementById('reportOutput').innerHTML = `
+    <div class="card">
+      <h2>📊 ملخص التقرير</h2>
+      <div class="stat-grid">
+        <div class="stat"><div class="label">عدد الفواتير</div><div class="value">${list.length}</div></div>
+        <div class="stat"><div class="label">إجمالي المبيعات</div><div class="value">${fmt(totalRev)} ج.م</div></div>
+        <div class="stat"><div class="label">إجمالي الشحن</div><div class="value">${fmt(totalShip)} ج.م</div></div>
+        <div class="stat"><div class="label">إجمالي التكلفة</div><div class="value">${fmt(totalCost)} ج.م</div></div>
+        <div class="stat profit"><div class="label">صافي الربح</div><div class="value">${fmt(totalProfit)} ج.م</div></div>
+      </div>
+      <h2 style="margin-top:16px">🧾 الفواتير</h2>
+      <table>
+        <tr><th>#</th><th>التاريخ</th><th>العميل</th><th>الإجمالي</th><th>الربح</th></tr>
+        ${list.map(i => `<tr>
+          <td>${i.invoice_number}</td>
+          <td>${formatDate(i.created_at)}</td>
+          <td>${i.customer_name}</td>
+          <td>${fmt(i.total)}</td>
+          <td style="color:var(--green)">${fmt(i.profit)}</td>
+        </tr>`).join('')}
+      </table>
+    </div>
+  `;
+}
+function exportReport() {
+  const list = getFilteredInvoices();
+  if (list.length === 0) return toast('لا توجد بيانات للتصدير', 'var(--red)');
+  let csv = 'رقم الفاتورة,التاريخ,العميل,الإجمالي,الشحن,التكلفة,الربح\n';
+  list.forEach(i => {
+    csv += `${i.invoice_number},${formatDate(i.created_at)},${i.customer_name},${i.total},${i.shipping},${i.total_cost},${i.profit}\n`;
+  });
+  const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'mishkat-report-' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+}
+
+// ============ Init ============
+(async function init() {
+  await loadAll();
+  renderHome();
+})();
+
+    </script>
+</body>
+</html>
