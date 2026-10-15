@@ -252,69 +252,85 @@ tr:hover{background:var(--cream)}
 .toast.show{opacity:1}
 
 /* ============ Welcome Section ============ */
+/* ============ Welcome Section ============ */
 .welcome-section{
   background:linear-gradient(135deg,#fff,var(--cream));
   border:2px solid var(--gold-light);
   border-radius:16px;
-  padding:28px 20px;
+  padding:20px 16px;
   text-align:center;
   box-shadow:0 4px 20px rgba(184,147,90,.15);
   position:relative;
   margin-bottom:14px;
 }
+.welcome-layout{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:16px;
+  align-items:center;
+  margin:16px 0;
+}
+.welcome-center{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
 .welcome-logo{
-  width:250px;
-  max-width:80%;
+  width:180px;
+  max-width:100%;
   border-radius:12px;
-  margin:12px auto;
   display:block;
   box-shadow:0 4px 16px rgba(93,74,47,.2);
 }
+.side-box{
+  background:#fff;
+  border:1px solid var(--gold-light);
+  border-radius:12px;
+  padding:14px;
+  text-align:right;
+  box-shadow:0 2px 8px rgba(93,74,47,.08);
+  min-height:140px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
 .zakhrafa-top,.zakhrafa-bottom{
   color:var(--gold);
-  font-size:14px;
-  letter-spacing:4px;
-  opacity:.7;
-  margin:8px 0;
-}
-.zakhrafa-divider{
-  color:var(--gold-dark);
-  font-size:18px;
-  letter-spacing:8px;
-  margin:14px 0;
+  font-size:13px;
+  letter-spacing:3px;
+  opacity:.75;
+  margin:4px 0;
 }
 .hijri-date{
-  font-size:16px;
+  font-size:13px;
   color:var(--brown-dark);
   font-weight:700;
-  margin:12px 0;
-  padding:8px 16px;
+  padding:6px 14px;
   background:var(--cream-dark);
   border-radius:20px;
   display:inline-block;
 }
-.daily-box{
-  background:#fff;
-  border-right:4px solid var(--gold);
-  border-radius:10px;
-  padding:16px;
-  margin:12px auto;
-  max-width:700px;
-  text-align:right;
-  box-shadow:0 2px 8px rgba(93,74,47,.08);
-}
-.daily-label{
-  font-size:13px;
+.daily-box.side-box .daily-label{
+  font-size:12px;
   color:var(--gold-dark);
   font-weight:700;
   margin-bottom:8px;
 }
-.daily-text{
-  font-size:15px;
-  line-height:1.9;
+.daily-box.side-box .daily-text{
+  font-size:13px;
+  line-height:1.8;
   color:var(--brown-dark);
 }
 
+@media(max-width:768px){
+  .welcome-layout{
+    grid-template-columns:1fr;
+  }
+  .welcome-logo{width:150px}
+  .side-box{min-height:auto}
+}
+  
 /* Dark Mode Toggle */
 .dark-toggle{
   position:absolute;
@@ -337,37 +353,134 @@ tr:hover{background:var(--cream)}
 
 /* ============ Dark Mode ============ */
 body.dark-mode{
-  --cream:#1e1a14;
-  --cream-dark:#2d2620;
-  --brown:#3d2f1d;
-  --brown-dark:#5d4a2f;
-  --text:#e8dcc8;
-  --muted:#a89880;
-  background:#1a1610;
+  --cream:#14110c;
+  --cream-dark:#1f1a12;
+  --brown:#8b6f47;
+  --brown-dark:#d4b483;
+  --text:#f5f0e6;
+  --muted:#c9b896;
+  background:#0f0d09;
+  color:#f5f0e6;
 }
 body.dark-mode .card,
 body.dark-mode .stat,
 body.dark-mode .welcome-section,
-body.dark-mode .daily-box,
+body.dark-mode .side-box,
 body.dark-mode .tab,
 body.dark-mode input,
 body.dark-mode select,
 body.dark-mode textarea{
-  background:#2d2620;
-  color:#e8dcc8;
-  border-color:#3d2f1d;
+  background:#1f1a12;
+  color:#f5f0e6;
+  border-color:#8b6f47;
 }
-body.dark-mode .welcome-section{background:linear-gradient(135deg,#2d2620,#1e1a14)}
-body.dark-mode .tab.active{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff}
-body.dark-mode table{color:#e8dcc8}
-body.dark-mode th{background:#1e1a14;color:var(--gold-light)}
-body.dark-mode tr:hover{background:#1e1a14}
-body.dark-mode .hijri-date{background:#1e1a14;color:var(--gold-light)}
-body.dark-mode .search-results{background:#2d2620;border-color:var(--gold)}
-body.dark-mode .search-results div{border-color:#3d2f1d}
-body.dark-mode .search-results div:hover{background:#1e1a14}
-body.dark-mode .invoice-box{background:#2d2620;color:#e8dcc8}
-body.dark-mode .low-stock{background:#3d2f1d;color:#fc8181}
+body.dark-mode .welcome-section{
+  background:linear-gradient(135deg,#1f1a12,#14110c);
+  border-color:#8b6f47;
+}
+body.dark-mode .side-box{
+  background:#1f1a12;
+  border-color:#8b6f47;
+}
+body.dark-mode .tab{
+  background:#1f1a12;
+  color:#d4b483;
+  border-color:#8b6f47;
+}
+body.dark-mode .tab.active{
+  background:linear-gradient(135deg,#b8935a,#8b6f47);
+  color:#fff;
+  border-color:#b8935a;
+}
+body.dark-mode .tab:hover:not(.active){
+  background:#2d2620;
+}
+body.dark-mode h2{
+  color:#d4b483;
+  border-right-color:#b8935a;
+}
+body.dark-mode .stat .label,
+body.dark-mode .muted,
+body.dark-mode label{
+  color:#c9b896;
+}
+body.dark-mode .stat .value{
+  color:#f5f0e6;
+}
+body.dark-mode .stat.profit .value{
+  color:#68d391;
+}
+body.dark-mode table{
+  color:#f5f0e6;
+}
+body.dark-mode th{
+  background:#14110c;
+  color:#d4b483;
+}
+body.dark-mode td{
+  border-bottom-color:#2d2620;
+}
+body.dark-mode tr:hover{
+  background:#1f1a12;
+}
+body.dark-mode .hijri-date{
+  background:#2d2620;
+  color:#d4b483;
+}
+body.dark-mode .daily-text{
+  color:#f5f0e6;
+}
+body.dark-mode .daily-label{
+  color:#d4b483;
+}
+body.dark-mode .zakhrafa-top,
+body.dark-mode .zakhrafa-bottom{
+  color:#b8935a;
+}
+body.dark-mode .search-results{
+  background:#1f1a12;
+  border-color:#b8935a;
+}
+body.dark-mode .search-results div{
+  color:#f5f0e6;
+  border-bottom-color:#2d2620;
+}
+body.dark-mode .search-results div:hover{
+  background:#14110c;
+}
+body.dark-mode .invoice-box{
+  background:#1f1a12;
+  color:#f5f0e6;
+  border-color:#b8935a;
+}
+body.dark-mode .low-stock{
+  background:#3d2018;
+  color:#fc8181;
+}
+body.dark-mode .empty{
+  color:#c9b896;
+}
+body.dark-mode button.gray{
+  background:#4a3d2a;
+  color:#f5f0e6;
+}
+body.dark-mode .header{
+  background:linear-gradient(135deg,#0f0d09,#1f1a12);
+}
+body.dark-mode .header h1{
+  color:#d4b483;
+}
+body.dark-mode .header p{
+  color:#c9b896;
+}
+body.dark-mode .totalsBox,
+body.dark-mode #totalsBox{
+  background:#14110c !important;
+  border-color:#b8935a !important;
+}
+body.dark-mode .welcome-section .welcome-logo{
+  box-shadow:0 4px 16px rgba(184,147,90,.3);
+}
   
 @media print{
   body *{visibility:hidden}
@@ -404,24 +517,27 @@ body.dark-mode .low-stock{background:#3d2f1d;color:#fc8181}
   <button class="dark-toggle" onclick="toggleDark()" title="الوضع الليلي">🌙</button>
   <div class="stat-grid" id="stats"></div>
   
-  <div class="welcome-section">
-    <div class="zakhrafa-top">◆ ─────────── ◆ ─────────── ◆</div>
-    <img src="logo.jpg" alt="مشكاة" class="welcome-logo">
-    <div class="hijri-date" id="hijriDate"></div>
-    <div class="zakhrafa-divider">❁ ❁ ❁</div>
-    
-    <div class="daily-box">
+ <div class="welcome-section">
+  <div class="zakhrafa-top">◆ ───────── ◆ ───────── ◆</div>
+  
+  <div class="welcome-layout">
+    <div class="daily-box side-box">
       <div class="daily-label">💬 آية اليوم</div>
       <div class="daily-text" id="dailyAyah"></div>
     </div>
     
-    <div class="daily-box">
+    <div class="welcome-center">
+      <img src="logo.jpg" alt="مشكاة" class="welcome-logo">
+      <div class="hijri-date" id="hijriDate"></div>
+    </div>
+    
+    <div class="daily-box side-box">
       <div class="daily-label">📖 حديث اليوم</div>
       <div class="daily-text" id="dailyHadith"></div>
     </div>
-    
-    <div class="zakhrafa-bottom">◆ ─────────── ◆ ─────────── ◆</div>
   </div>
+  
+  <div class="zakhrafa-bottom">◆ ───────── ◆ ───────── ◆</div>
 </div>
 
 <div id="books" class="page" style="display:none">
