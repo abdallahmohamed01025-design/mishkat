@@ -1202,7 +1202,7 @@ function renderHijriDate() {
       month: 'long',
       year: 'numeric'
     }).format(new Date());
-    document.getElementById('hijriDate').textContent = '📅 ' + hijri + ' هـ';
+    document.getElementById('hijriDate').textContent = '📅 ' + hijri ;
   } catch(e) {
     document.getElementById('hijriDate').textContent = '';
   }
