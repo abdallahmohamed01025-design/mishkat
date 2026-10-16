@@ -43,7 +43,7 @@ body{font-family:'Tajawal','Segoe UI',Tahoma,sans-serif;background:var(--cream);
   background-image:url('logo.jpg');
   background-size:cover;
   background-position:center;
-  opacity:0.15;
+  opacity:0.12;
   z-index:0;
 }
 .header > *{position:relative;z-index:1}
@@ -251,184 +251,6 @@ tr:hover{background:var(--cream)}
 }
 .toast.show{opacity:1}
 
-/* ============ Books Page ============ */
-.books-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:12px;
-}
-.books-header h2{
-  margin:0;
-  border:none;
-  padding:0;
-}
-.books-actions{
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
-}
-.books-actions button{
-  margin:0;
-}
-
-/* قائمة الكتب - جدول مبسط */
-.books-table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:13px;
-  margin-top:8px;
-}
-.books-table th,
-.books-table td{
-  padding:12px 8px;
-  border-bottom:1px solid var(--cream-dark);
-  text-align:right;
-}
-.books-table th{
-  background:var(--cream);
-  color:var(--brown-dark);
-  font-weight:700;
-  font-size:12px;
-}
-.books-table tr:hover{
-  background:var(--cream);
-  cursor:pointer;
-}
-.books-table td.book-title{
-  font-weight:700;
-  color:var(--brown-dark);
-}
-.books-table td.book-publisher{
-  color:var(--muted);
-  font-size:12px;
-}
-.books-table td.book-price{
-  color:var(--gold-dark);
-  font-weight:700;
-}
-.books-table .edit-icon{
-  background:transparent;
-  border:1px solid var(--gold);
-  color:var(--gold-dark);
-  padding:6px 10px;
-  border-radius:8px;
-  font-size:14px;
-  cursor:pointer;
-  margin:0;
-}
-.books-table .edit-icon:hover{
-  background:var(--gold);
-  color:#fff;
-}
-
-/* التصنيفات */
-#categoriesList{
-  margin-top:12px;
-}
-.category-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px 12px;
-  background:var(--cream);
-  border-radius:8px;
-  margin-bottom:6px;
-  border-right:3px solid var(--gold);
-}
-.category-item span{
-  font-weight:700;
-  color:var(--brown-dark);
-}
-.category-item .cat-actions{
-  display:flex;
-  gap:4px;
-}
-.category-item button{
-  padding:4px 8px;
-  font-size:11px;
-  margin:0;
-}
-
-/* Dark Mode for Books */
-body.dark-mode .books-table th{
-  background:#14110c;
-  color:#d4b483;
-}
-body.dark-mode .books-table td{
-  border-bottom-color:#2d2620;
-}
-body.dark-mode .books-table tr:hover{
-  background:#1f1a12;
-}
-body.dark-mode .books-table td.book-title{
-  color:#f5f0e6;
-}
-body.dark-mode .category-item{
-  background:#1f1a12;
-  color:#f5f0e6;
-}
-body.dark-mode .category-item span{
-  color:#d4b483;
-}
-
-/* Mobile: الجداول تتحول لبطاقات */
-@media(max-width:600px){
-  .books-header{
-    flex-direction:column;
-    align-items:stretch;
-  }
-  .books-actions{
-    justify-content:space-between;
-  }
-  .books-actions button{
-    flex:1;
-  }
-  .books-table thead{display:none;}
-  .books-table,
-  .books-table tbody,
-  .books-table tr,
-  .books-table td{
-    display:block;
-    width:100%;
-  }
-  .books-table tr{
-    background:#fff;
-    border-radius:10px;
-    padding:12px;
-    margin-bottom:10px;
-    box-shadow:0 2px 6px rgba(93,74,47,.08);
-    border-right:3px solid var(--gold);
-    position:relative;
-  }
-  body.dark-mode .books-table tr{
-    background:#1f1a12;
-  }
-  .books-table td{
-    padding:4px 0;
-    border:none;
-    text-align:right;
-  }
-  .books-table td.book-title{
-    font-size:15px;
-    margin-bottom:4px;
-  }
-  .books-table td .mobile-label{
-    color:var(--muted);
-    font-size:11px;
-    font-weight:600;
-    margin-left:6px;
-  }
-  .books-table .edit-icon{
-    position:absolute;
-    top:10px;
-    left:10px;
-  }
-}
-  
-  /* ============ Welcome Section ============ */
 /* ============ Welcome Section ============ */
 .welcome-section{
   background:linear-gradient(135deg,#fff,var(--cream));
@@ -507,7 +329,7 @@ body.dark-mode .category-item span{
   .welcome-logo{width:150px}
   .side-box{min-height:auto}
 }
-  
+
 /* Dark Mode Toggle */
 .dark-toggle{
   position:absolute;
@@ -527,6 +349,101 @@ body.dark-mode .category-item span{
   z-index:50;
 }
 .dark-toggle:hover{background:var(--gold);color:#fff}
+
+/* ============ Books Page ============ */
+.books-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:12px;
+}
+.books-header h2{
+  margin:0;
+  border:none;
+  padding:0;
+}
+.books-actions{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.books-actions button{margin:0}
+
+.books-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+  margin-top:8px;
+}
+.books-table th,
+.books-table td{
+  padding:12px 8px;
+  border-bottom:1px solid var(--cream-dark);
+  text-align:right;
+}
+.books-table th{
+  background:var(--cream);
+  color:var(--brown-dark);
+  font-weight:700;
+  font-size:12px;
+}
+.books-table tr:hover{
+  background:var(--cream);
+  cursor:pointer;
+}
+.books-table td.book-title{
+  font-weight:700;
+  color:var(--brown-dark);
+}
+.books-table td.book-publisher{
+  color:var(--muted);
+  font-size:12px;
+}
+.books-table td.book-price{
+  color:var(--gold-dark);
+  font-weight:700;
+}
+.books-table .edit-icon{
+  background:transparent;
+  border:1px solid var(--gold);
+  color:var(--gold-dark);
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:14px;
+  cursor:pointer;
+  margin:0;
+}
+.books-table .edit-icon:hover{
+  background:var(--gold);
+  color:#fff;
+}
+
+#categoriesList{margin-top:12px}
+.category-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 12px;
+  background:var(--cream);
+  border-radius:8px;
+  margin-bottom:6px;
+  border-right:3px solid var(--gold);
+}
+.category-item span{
+  font-weight:700;
+  color:var(--brown-dark);
+}
+.category-item .cat-actions{
+  display:flex;
+  gap:4px;
+}
+.category-item button{
+  padding:4px 8px;
+  font-size:11px;
+  margin:0;
+}
 
 /* ============ Dark Mode ============ */
 body.dark-mode{
@@ -551,114 +468,37 @@ body.dark-mode textarea{
   color:#f5f0e6;
   border-color:#8b6f47;
 }
-body.dark-mode .welcome-section{
-  background:linear-gradient(135deg,#1f1a12,#14110c);
-  border-color:#8b6f47;
-}
-body.dark-mode .side-box{
-  background:#1f1a12;
-  border-color:#8b6f47;
-}
-body.dark-mode .tab{
-  background:#1f1a12;
-  color:#d4b483;
-  border-color:#8b6f47;
-}
 body.dark-mode .tab.active{
   background:linear-gradient(135deg,#b8935a,#8b6f47);
   color:#fff;
-  border-color:#b8935a;
 }
-body.dark-mode .tab:hover:not(.active){
-  background:#2d2620;
-}
-body.dark-mode h2{
-  color:#d4b483;
-  border-right-color:#b8935a;
-}
+body.dark-mode h2{color:#d4b483;border-right-color:#b8935a}
 body.dark-mode .stat .label,
-body.dark-mode .muted,
-body.dark-mode label{
-  color:#c9b896;
-}
-body.dark-mode .stat .value{
-  color:#f5f0e6;
-}
-body.dark-mode .stat.profit .value{
-  color:#68d391;
-}
-body.dark-mode table{
-  color:#f5f0e6;
-}
-body.dark-mode th{
-  background:#14110c;
-  color:#d4b483;
-}
-body.dark-mode td{
-  border-bottom-color:#2d2620;
-}
-body.dark-mode tr:hover{
-  background:#1f1a12;
-}
-body.dark-mode .hijri-date{
-  background:#2d2620;
-  color:#d4b483;
-}
-body.dark-mode .daily-text{
-  color:#f5f0e6;
-}
-body.dark-mode .daily-label{
-  color:#d4b483;
-}
-body.dark-mode .zakhrafa-top,
-body.dark-mode .zakhrafa-bottom{
-  color:#b8935a;
-}
-body.dark-mode .search-results{
-  background:#1f1a12;
-  border-color:#b8935a;
-}
-body.dark-mode .search-results div{
-  color:#f5f0e6;
-  border-bottom-color:#2d2620;
-}
-body.dark-mode .search-results div:hover{
-  background:#14110c;
-}
-body.dark-mode .invoice-box{
-  background:#1f1a12;
-  color:#f5f0e6;
-  border-color:#b8935a;
-}
-body.dark-mode .low-stock{
-  background:#3d2018;
-  color:#fc8181;
-}
-body.dark-mode .empty{
-  color:#c9b896;
-}
-body.dark-mode button.gray{
-  background:#4a3d2a;
-  color:#f5f0e6;
-}
-body.dark-mode .header{
-  background:linear-gradient(135deg,#0f0d09,#1f1a12);
-}
-body.dark-mode .header h1{
-  color:#d4b483;
-}
-body.dark-mode .header p{
-  color:#c9b896;
-}
-body.dark-mode .totalsBox,
-body.dark-mode #totalsBox{
-  background:#14110c !important;
-  border-color:#b8935a !important;
-}
-body.dark-mode .welcome-section .welcome-logo{
-  box-shadow:0 4px 16px rgba(184,147,90,.3);
-}
-  
+body.dark-mode label{color:#c9b896}
+body.dark-mode .stat .value{color:#f5f0e6}
+body.dark-mode .stat.profit .value{color:#68d391}
+body.dark-mode table{color:#f5f0e6}
+body.dark-mode th{background:#14110c;color:#d4b483}
+body.dark-mode td{border-bottom-color:#2d2620}
+body.dark-mode tr:hover{background:#1f1a12}
+body.dark-mode .hijri-date{background:#2d2620;color:#d4b483}
+body.dark-mode .daily-text{color:#f5f0e6}
+body.dark-mode .daily-label{color:#d4b483}
+body.dark-mode .search-results{background:#1f1a12;border-color:#b8935a}
+body.dark-mode .search-results div{color:#f5f0e6;border-bottom-color:#2d2620}
+body.dark-mode .search-results div:hover{background:#14110c}
+body.dark-mode .invoice-box{background:#1f1a12;color:#f5f0e6;border-color:#b8935a}
+body.dark-mode .low-stock{background:#3d2018;color:#fc8181}
+body.dark-mode .empty{color:#c9b896}
+body.dark-mode .header h1{color:#d4b483}
+body.dark-mode .header p{color:#c9b896}
+body.dark-mode .books-table th{background:#14110c;color:#d4b483}
+body.dark-mode .books-table td{border-bottom-color:#2d2620}
+body.dark-mode .books-table td.book-title{color:#f5f0e6}
+body.dark-mode .category-item{background:#1f1a12}
+body.dark-mode .category-item span{color:#d4b483}
+body.dark-mode #totalsBox{background:#14110c !important;border-color:#b8935a !important}
+
 @media print{
   body *{visibility:hidden}
   .invoice-box,.invoice-box *{visibility:visible}
@@ -667,17 +507,38 @@ body.dark-mode .welcome-section .welcome-logo{
 }
 
 @media(max-width:600px){
-  .invoice-item-row{grid-template-columns:1fr 1fr}
-  .invoice-item-row>select{grid-column:1/-1}
   body{padding:8px}
   .tab{font-size:11px;padding:10px 4px}
+  .invoice-item-row{grid-template-columns:1fr 1fr}
+  .invoice-item-row>select{grid-column:1/-1}
+  .books-header{flex-direction:column;align-items:stretch}
+  .books-actions{justify-content:space-between}
+  .books-actions button{flex:1}
+  .books-table thead{display:none}
+  .books-table,
+  .books-table tbody,
+  .books-table tr,
+  .books-table td{display:block;width:100%}
+  .books-table tr{
+    background:#fff;
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:10px;
+    box-shadow:0 2px 6px rgba(93,74,47,.08);
+    border-right:3px solid var(--gold);
+    position:relative;
+  }
+  body.dark-mode .books-table tr{background:#1f1a12}
+  .books-table td{padding:4px 0;border:none;text-align:right}
+  .books-table td.book-title{font-size:15px;margin-bottom:4px}
+  .books-table .edit-icon{position:absolute;top:10px;left:10px}
 }
 </style>
 </head>
 <body>
 
 <div class="header">
-<h1><img src="lamp.jpg" alt="مشكاة" style="height:70px;vertical-align:middle;margin-left:8px">مكتبة مشكاة</h1>
+  <h1><img src="lamp.jpg" alt="مشكاة" style="height:70px;vertical-align:middle;margin-left:8px">مكتبة مشكاة</h1>
   <p>ميراث النبوة وزاد الأمة</p>
 </div>
 
@@ -694,27 +555,28 @@ body.dark-mode .welcome-section .welcome-logo{
   <button class="dark-toggle" onclick="toggleDark()" title="الوضع الليلي">🌙</button>
   <div class="stat-grid" id="stats"></div>
   
- <div class="welcome-section">
-  <div class="zakhrafa-top">◆ ───────── ◆ ───────── ◆</div>
-  
-  <div class="welcome-layout">
-    <div class="daily-box side-box">
-      <div class="daily-label">💬 آية اليوم</div>
-      <div class="daily-text" id="dailyAyah"></div>
+  <div class="welcome-section">
+    <div class="zakhrafa-top">◆ ───────── ◆ ───────── ◆</div>
+    
+    <div class="welcome-layout">
+      <div class="daily-box side-box">
+        <div class="daily-label">💬 آية اليوم</div>
+        <div class="daily-text" id="dailyAyah"></div>
+      </div>
+      
+      <div class="welcome-center">
+        <img src="logo.jpg" alt="مشكاة" class="welcome-logo">
+        <div class="hijri-date" id="hijriDate"></div>
+      </div>
+      
+      <div class="daily-box side-box">
+        <div class="daily-label">📖 حديث اليوم</div>
+        <div class="daily-text" id="dailyHadith"></div>
+      </div>
     </div>
     
-    <div class="welcome-center">
-      <img src="logo.jpg" alt="مشكاة" class="welcome-logo">
-      <div class="hijri-date" id="hijriDate"></div>
-    </div>
-    
-    <div class="daily-box side-box">
-      <div class="daily-label">📖 حديث اليوم</div>
-      <div class="daily-text" id="dailyHadith"></div>
-    </div>
+    <div class="zakhrafa-bottom">◆ ───────── ◆ ───────── ◆</div>
   </div>
-  
-  <div class="zakhrafa-bottom">◆ ───────── ◆ ───────── ◆</div>
 </div>
 
 <div id="books" class="page" style="display:none">
@@ -842,9 +704,9 @@ body.dark-mode .welcome-section .welcome-logo{
 </div>
 
 <div id="toast" class="toast"></div>
-
 <script>
-// ============ Supabase ============
+
+  // ============ Supabase ============
 const SUPABASE_URL = 'https://peugghkprnwhlmpjlfcn.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_oDhyYeR-i2baV17b-M7RsA_ZJdtZgtU';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -853,6 +715,7 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let books = [];
 let customers = [];
 let invoices = [];
+let categories = [];
 let currentInvoice = { customer: null, items: [] };
 
 // ============ Helpers ============
@@ -879,7 +742,7 @@ function showTab(id, e) {
   document.getElementById(id).style.display = 'block';
   if (e && e.target) e.target.classList.add('active');
   if (id === 'home') renderHome();
-  if (id === 'books') renderBooks();
+  if (id === 'books') { renderBooks(); }
   if (id === 'customers') renderCustomers();
   if (id === 'invoices') renderInvoices();
   if (id === 'newInvoice') initNewInvoice();
@@ -897,61 +760,201 @@ async function loadAll() {
   invoices = inv.data || [];
 }
 
-// ============ Books ============
-function resetBookForm() {
-  ['bTitle','bAuthor','bPrice','bCost','bPack','bStock','bAlert'].forEach(id => document.getElementById(id).value = '');
+// ============ Categories ============
+async function loadCategories() {
+  const { data } = await sb.from('categories').select('*').order('name');
+  categories = data || [];
 }
-async function addBook() {
+
+function toggleCategoriesPanel() {
+  const panel = document.getElementById('categoriesPanel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  if (panel.style.display === 'block') renderCategories();
+}
+
+async function addCategory() {
+  const name = document.getElementById('newCategory').value.trim();
+  if (!name) return toast('اكتب اسم التصنيف', 'var(--red)');
+  const { error } = await sb.from('categories').insert({ name });
+  if (error) {
+    if (error.message.includes('duplicate')) return toast('التصنيف موجود بالفعل', 'var(--red)');
+    return toast('خطأ: ' + error.message, 'var(--red)');
+  }
+  toast('✅ تم إضافة التصنيف');
+  document.getElementById('newCategory').value = '';
+  await loadCategories();
+  renderCategories();
+  renderCategoriesSelect();
+}
+
+async function deleteCategory(id) {
+  if (!confirm('حذف التصنيف؟ (الكتب لن تُحذف)')) return;
+  await sb.from('books').update({ category_id: null }).eq('category_id', id);
+  await sb.from('categories').delete().eq('id', id);
+  toast('تم الحذف');
+  await loadCategories();
+  renderCategories();
+  renderCategoriesSelect();
+  await loadAll();
+  renderBooks();
+}
+
+async function renameCategory(id) {
+  const cat = categories.find(c => c.id === id);
+  const newName = prompt('الاسم الجديد:', cat.name);
+  if (!newName || newName === cat.name) return;
+  const { error } = await sb.from('categories').update({ name: newName }).eq('id', id);
+  if (error) return toast('خطأ: ' + error.message, 'var(--red)');
+  toast('✅ تم التعديل');
+  await loadCategories();
+  renderCategories();
+  renderCategoriesSelect();
+}
+
+function renderCategories() {
+  const el = document.getElementById('categoriesList');
+  if (categories.length === 0) {
+    el.innerHTML = '<div class="empty">لا توجد تصنيفات بعد. أضف أول تصنيف 📁</div>';
+    return;
+  }
+  let html = '';
+  categories.forEach(c => {
+    html += `<div class="category-item">
+      <span>📁 ${c.name}</span>
+      <div class="cat-actions">
+        <button class="gold" onclick="renameCategory('${c.id}')">✏️</button>
+        <button class="danger" onclick="deleteCategory('${c.id}')">🗑️</button>
+      </div>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+function renderCategoriesSelect() {
+  const sel = document.getElementById('bCategory');
+  if (!sel) return;
+  const current = sel.value;
+  sel.innerHTML = '<option value="">— بدون تصنيف —</option>';
+  categories.forEach(c => {
+    sel.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+  });
+  if (current) sel.value = current;
+}
+
+// ============ Book Form ============
+function toggleBookForm() {
+  const form = document.getElementById('bookForm');
+  const isHidden = form.style.display === 'none' || !form.style.display;
+  if (isHidden) {
+    resetBookForm();
+    form.style.display = 'block';
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    closeBookForm();
+  }
+}
+
+function closeBookForm() {
+  document.getElementById('bookForm').style.display = 'none';
+  resetBookForm();
+}
+
+function resetBookForm() {
+  ['bId','bTitle','bAuthor','bPublisher','bPrice','bCost','bStock','bAlert'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('bCategory').value = '';
+  document.getElementById('deleteBookBtn').style.display = 'none';
+}
+
+function editBook(id) {
+  const b = books.find(x => x.id === id);
+  if (!b) return;
+  document.getElementById('bId').value = b.id;
+  document.getElementById('bTitle').value = b.title || '';
+  document.getElementById('bAuthor').value = b.author || '';
+  document.getElementById('bPublisher').value = b.publisher || '';
+  document.getElementById('bCategory').value = b.category_id || '';
+  document.getElementById('bPrice').value = b.sell_price || '';
+  document.getElementById('bCost').value = b.base_cost || '';
+  document.getElementById('bStock').value = b.stock || '';
+  document.getElementById('bAlert').value = b.low_stock_alert || 3;
+  document.getElementById('deleteBookBtn').style.display = 'block';
+  document.getElementById('bookForm').style.display = 'block';
+  document.getElementById('bookForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function saveBook() {
+  const id = document.getElementById('bId').value;
   const title = document.getElementById('bTitle').value.trim();
   if (!title) return toast('اكتب عنوان الكتاب', 'var(--red)');
-  const book = {
+  
+  const bookData = {
     title,
     author: document.getElementById('bAuthor').value.trim(),
+    publisher: document.getElementById('bPublisher').value.trim(),
+    category_id: document.getElementById('bCategory').value || null,
     sell_price: parseFloat(document.getElementById('bPrice').value) || 0,
     base_cost: parseFloat(document.getElementById('bCost').value) || 0,
-    packaging_cost: parseFloat(document.getElementById('bPack').value) || 0,
     stock: parseInt(document.getElementById('bStock').value) || 0,
     low_stock_alert: parseInt(document.getElementById('bAlert').value) || 3
   };
-  const { error } = await sb.from('books').insert(book);
+
+  let error;
+  if (id) {
+    ({ error } = await sb.from('books').update(bookData).eq('id', id));
+  } else {
+    ({ error } = await sb.from('books').insert(bookData));
+  }
   if (error) return toast('خطأ: ' + error.message, 'var(--red)');
-  toast('✅ تم حفظ الكتاب');
-  resetBookForm();
+  toast('✅ تم الحفظ');
+  closeBookForm();
   await loadAll();
   renderBooks();
 }
-async function deleteBook(id) {
-  if (!confirm('حذف هذا الكتاب؟')) return;
+
+async function deleteCurrentBook() {
+  const id = document.getElementById('bId').value;
+  if (!id) return;
+  if (!confirm('⚠️ حذف هذا الكتاب نهائياً؟')) return;
+  if (!confirm('تأكيد أخير — لا يمكن التراجع!')) return;
   await sb.from('books').delete().eq('id', id);
   toast('تم الحذف');
+  closeBookForm();
   await loadAll();
   renderBooks();
 }
+
 function renderBooks() {
   const el = document.getElementById('booksList');
   const search = (document.getElementById('booksSearch').value || '').toLowerCase();
   let list = books;
-  if (search) list = books.filter(b => b.title.toLowerCase().includes(search) || (b.author || '').toLowerCase().includes(search));
-  if (list.length === 0) { el.innerHTML = '<div class="empty">لا توجد كتب</div>'; return; }
-  let html = '<table><tr><th>العنوان</th><th>سعر البيع</th><th>التكلفة الكلية</th><th>الربح</th><th>المخزون</th><th></th></tr>';
+  if (search) {
+    list = books.filter(b =>
+      b.title.toLowerCase().includes(search) ||
+      (b.author || '').toLowerCase().includes(search) ||
+      (b.publisher || '').toLowerCase().includes(search)
+    );
+  }
+  if (list.length === 0) {
+    el.innerHTML = '<div class="empty">لا توجد كتب. اضغط "➕ إضافة كتاب"</div>';
+    return;
+  }
+  let html = '<table class="books-table"><thead><tr><th>عنوان الكتاب</th><th>دار النشر</th><th>سعر البيع</th><th></th></tr></thead><tbody>';
   list.forEach(b => {
-    const totalCost = (Number(b.base_cost) || 0) + (Number(b.packaging_cost) || 0);
-    const profit = (Number(b.sell_price) || 0) - totalCost;
-    const stockBadge = b.stock <= (b.low_stock_alert || 3) ? `<span class="low-stock">⚠️ ${b.stock}</span>` : b.stock;
-    html += `<tr>
-      <td><b>${b.title}</b>${b.author ? '<br><small style="color:var(--muted)">' + b.author + '</small>' : ''}</td>
-      <td>${fmt(b.sell_price)}</td>
-      <td style="color:var(--muted)">${fmt(totalCost)}</td>
-      <td style="color:var(--green);font-weight:700">${fmt(profit)}</td>
-      <td>${stockBadge}</td>
-      <td class="actions"><button class="danger small" onclick="deleteBook('${b.id}')">حذف</button></td>
+    html += `<tr onclick="editBook('${b.id}')">
+      <td class="book-title" data-label="الكتاب">${b.title}</td>
+      <td class="book-publisher" data-label="دار النشر">${b.publisher || '—'}</td>
+      <td class="book-price" data-label="السعر">${fmt(b.sell_price)} ج.م</td>
+      <td><button class="edit-icon" onclick="event.stopPropagation();editBook('${b.id}')">✏️</button></td>
     </tr>`;
   });
-  html += '</table>';
+  html += '</tbody></table>';
   el.innerHTML = html;
 }
 
-// ============ Customers ============
+  // ============ Customers ============
 async function addCustomer() {
   const name = document.getElementById('cName').value.trim();
   if (!name) return toast('اكتب اسم العميل', 'var(--red)');
@@ -979,8 +982,7 @@ function customerStats(customerId) {
   const inv = invoices.filter(i => i.customer_id === customerId);
   return {
     count: inv.length,
-    total: inv.reduce((a, i) => a + (Number(i.total) || 0), 0),
-    last: inv.length > 0 ? inv[0].created_at : null
+    total: inv.reduce((a, i) => a + (Number(i.total) || 0), 0)
   };
 }
 function renderCustomers() {
@@ -1008,7 +1010,7 @@ function renderCustomers() {
   el.innerHTML = html;
 }
 
-// ============ New Invoice ============
+// ============ Invoice ============
 function initNewInvoice() {
   renderSelectedCustomer();
   renderItems();
@@ -1101,7 +1103,7 @@ function onBookSelect(idx, bookId) {
   currentInvoice.items[idx].book_id = book.id;
   currentInvoice.items[idx].title = book.title;
   currentInvoice.items[idx].price = book.sell_price;
-  currentInvoice.items[idx].cost = (Number(book.base_cost) || 0) + (Number(book.packaging_cost) || 0);
+  currentInvoice.items[idx].cost = Number(book.base_cost) || 0;
   renderItems();
 }
 function calcTotals() {
@@ -1165,7 +1167,6 @@ async function saveInvoice() {
   await loadAll();
   toast('✅ تم حفظ الفاتورة');
 }
-
 function showInvoiceForPrint(inv, items) {
   const el = document.getElementById('invoiceOutput');
   el.innerHTML = `
@@ -1188,7 +1189,6 @@ function showInvoiceForPrint(inv, items) {
           <td>${fmt(it.line_total)}</td>
         </tr>`).join('')}
       </table>
-
       <div style="text-align:left;margin-top:14px;font-size:14px">
         <div style="margin-bottom:4px"><b>الإجمالي:</b> ${fmt(inv.subtotal)} ج.م</div>
         ${inv.shipping > 0 ? `<div style="margin-bottom:4px"><b>الشحن:</b> ${fmt(inv.shipping)} ج.م</div>` : ''}
@@ -1202,7 +1202,6 @@ function showInvoiceForPrint(inv, items) {
   `;
   el.scrollIntoView({ behavior: 'smooth' });
 }
-
 function resetInvoice() {
   currentInvoice = { customer: null, items: [] };
   document.getElementById('invCustomerSearch').value = '';
@@ -1214,8 +1213,6 @@ function resetInvoice() {
   renderItems();
   updateTotals();
 }
-
-// ============ Invoices List ============
 function renderInvoices() {
   const el = document.getElementById('invoicesList');
   const search = (document.getElementById('invoicesSearch').value || '').toLowerCase();
@@ -1408,7 +1405,7 @@ function renderHijriDate() {
       month: 'long',
       year: 'numeric'
     }).format(new Date());
-    document.getElementById('hijriDate').textContent = '📅 ' + hijri ;
+    document.getElementById('hijriDate').textContent = '📅 ' + hijri;
   } catch(e) {
     document.getElementById('hijriDate').textContent = '';
   }
@@ -1440,220 +1437,7 @@ function initDarkMode() {
     if (btn) btn.textContent = '☀️';
   }
 }
-  // ============ Categories ============
-let categories = [];
 
-async function loadCategories() {
-  const { data } = await sb.from('categories').select('*').order('name');
-  categories = data || [];
-}
-
-function toggleCategoriesPanel() {
-  const panel = document.getElementById('categoriesPanel');
-  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-  if (panel.style.display === 'block') renderCategories();
-}
-
-async function addCategory() {
-  const name = document.getElementById('newCategory').value.trim();
-  if (!name) return toast('اكتب اسم التصنيف', 'var(--red)');
-  const { error } = await sb.from('categories').insert({ name });
-  if (error) {
-    if (error.message.includes('duplicate')) return toast('التصنيف موجود بالفعل', 'var(--red)');
-    return toast('خطأ: ' + error.message, 'var(--red)');
-  }
-  toast('✅ تم إضافة التصنيف');
-  document.getElementById('newCategory').value = '';
-  await loadCategories();
-  renderCategories();
-  renderCategoriesSelect();
-}
-
-async function deleteCategory(id) {
-  if (!confirm('حذف التصنيف؟ (الكتب لن تُحذف، سيبقى التصنيف فارغاً)')) return;
-  await sb.from('categories').delete().eq('id', id);
-  await sb.from('books').update({ category_id: null }).eq('category_id', id);
-  toast('تم الحذف');
-  await loadCategories();
-  renderCategories();
-  renderCategoriesSelect();
-  await loadAll();
-  renderBooks();
-}
-
-async function renameCategory(id) {
-  const cat = categories.find(c => c.id === id);
-  const newName = prompt('الاسم الجديد:', cat.name);
-  if (!newName || newName === cat.name) return;
-  const { error } = await sb.from('categories').update({ name: newName }).eq('id', id);
-  if (error) return toast('خطأ: ' + error.message, 'var(--red)');
-  toast('✅ تم التعديل');
-  await loadCategories();
-  renderCategories();
-  renderCategoriesSelect();
-}
-
-function renderCategories() {
-  const el = document.getElementById('categoriesList');
-  if (categories.length === 0) {
-    el.innerHTML = '<div class="empty">لا توجد تصنيفات بعد. أضف أول تصنيف 📁</div>';
-    return;
-  }
-  let html = '';
-  categories.forEach(c => {
-    html += `<div class="category-item">
-      <span>📁 ${c.name}</span>
-      <div class="cat-actions">
-        <button class="gold" onclick="renameCategory('${c.id}')">✏️</button>
-        <button class="danger" onclick="deleteCategory('${c.id}')">🗑️</button>
-      </div>
-    </div>`;
-  });
-  el.innerHTML = html;
-}
-
-function renderCategoriesSelect() {
-  const sel = document.getElementById('bCategory');
-  if (!sel) return;
-  const current = sel.value;
-  sel.innerHTML = '<option value="">— بدون تصنيف —</option>';
-  categories.forEach(c => {
-    sel.innerHTML += `<option value="${c.id}">${c.name}</option>`;
-  });
-  if (current) sel.value = current;
-}
-
-function getCategoryName(id) {
-  if (!id) return '';
-  const c = categories.find(x => x.id === id);
-  return c ? c.name : '';
-}
-
-// ============ Book Form ============
-function toggleBookForm() {
-  const form = document.getElementById('bookForm');
-  const isHidden = form.style.display === 'none' || !form.style.display;
-  if (isHidden) {
-    resetBookForm();
-    form.style.display = 'block';
-    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    closeBookForm();
-  }
-}
-
-function closeBookForm() {
-  document.getElementById('bookForm').style.display = 'none';
-  resetBookForm();
-}
-
-function resetBookForm() {
-  ['bId','bTitle','bAuthor','bPublisher','bPrice','bCost','bStock','bAlert'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = '';
-  });
-  document.getElementById('bCategory').value = '';
-  document.getElementById('deleteBookBtn').style.display = 'none';
-}
-
-function editBook(id) {
-  const b = books.find(x => x.id === id);
-  if (!b) return;
-  document.getElementById('bId').value = b.id;
-  document.getElementById('bTitle').value = b.title || '';
-  document.getElementById('bAuthor').value = b.author || '';
-  document.getElementById('bPublisher').value = b.publisher || '';
-  document.getElementById('bCategory').value = b.category_id || '';
-  document.getElementById('bPrice').value = b.sell_price || '';
-  document.getElementById('bCost').value = b.base_cost || '';
-  document.getElementById('bStock').value = b.stock || '';
-  document.getElementById('bAlert').value = b.low_stock_alert || 3;
-  document.getElementById('deleteBookBtn').style.display = 'block';
-  document.getElementById('bookForm').style.display = 'block';
-  document.getElementById('bookForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-async function saveBook() {
-  const id = document.getElementById('bId').value;
-  const title = document.getElementById('bTitle').value.trim();
-  if (!title) return toast('اكتب عنوان الكتاب', 'var(--red)');
-  
-  const bookData = {
-    title,
-    author: document.getElementById('bAuthor').value.trim(),
-    publisher: document.getElementById('bPublisher').value.trim(),
-    category_id: document.getElementById('bCategory').value || null,
-    sell_price: parseFloat(document.getElementById('bPrice').value) || 0,
-    base_cost: parseFloat(document.getElementById('bCost').value) || 0,
-    stock: parseInt(document.getElementById('bStock').value) || 0,
-    low_stock_alert: parseInt(document.getElementById('bAlert').value) || 3
-  };
-
-  let error;
-  if (id) {
-    ({ error } = await sb.from('books').update(bookData).eq('id', id));
-  } else {
-    ({ error } = await sb.from('books').insert(bookData));
-  }
-  if (error) return toast('خطأ: ' + error.message, 'var(--red)');
-  toast('✅ تم الحفظ');
-  closeBookForm();
-  await loadAll();
-  renderBooks();
-}
-
-async function deleteCurrentBook() {
-  const id = document.getElementById('bId').value;
-  if (!id) return;
-  if (!confirm('⚠️ حذف هذا الكتاب نهائياً؟')) return;
-  if (!confirm('تأكيد أخير — لا يمكن التراجع!')) return;
-  await sb.from('books').delete().eq('id', id);
-  toast('تم الحذف');
-  closeBookForm();
-  await loadAll();
-  renderBooks();
-}
-
-// ============ Render Books ============
-function renderBooks() {
-  const el = document.getElementById('booksList');
-  const search = (document.getElementById('booksSearch').value || '').toLowerCase();
-  let list = books;
-  if (search) {
-    list = books.filter(b =>
-      b.title.toLowerCase().includes(search) ||
-      (b.author || '').toLowerCase().includes(search) ||
-      (b.publisher || '').toLowerCase().includes(search)
-    );
-  }
-  if (list.length === 0) {
-    el.innerHTML = '<div class="empty">لا توجد كتب. اضغط "➕ إضافة كتاب"</div>';
-    return;
-  }
-  let html = '<table class="books-table"><thead><tr><th>عنوان الكتاب</th><th>دار النشر</th><th>سعر البيع</th><th></th></tr></thead><tbody>';
-  list.forEach(b => {
-    html += `<tr onclick="editBook('${b.id}')">
-      <td class="book-title" data-label="الكتاب">${b.title}</td>
-      <td class="book-publisher" data-label="دار النشر">${b.publisher || '—'}</td>
-      <td class="book-price" data-label="السعر">${fmt(b.sell_price)} ج.م</td>
-      <td><button class="edit-icon" onclick="event.stopPropagation();editBook('${b.id}')">✏️</button></td>
-    </tr>`;
-  });
-  html += '</tbody></table>';
-  el.innerHTML = html;
-}
-
-function renderCategoriesSelect() {
-  const sel = document.getElementById('bCategory');
-  if (!sel) return;
-  const current = sel.value;
-  sel.innerHTML = '<option value="">— بدون تصنيف —</option>';
-  categories.forEach(c => {
-    sel.innerHTML += `<option value="${c.id}">${c.name}</option>`;
-  });
-  if (current) sel.value = current;
-}
-  
 // ============ Init ============
 (async function init() {
   await loadAll();
@@ -1667,3 +1451,4 @@ function renderCategoriesSelect() {
 </script>
 </body>
 </html>
+  
