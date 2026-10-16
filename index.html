@@ -251,165 +251,6 @@ tr:hover{background:var(--cream)}
 }
 .toast.show{opacity:1}
 
-  /* ============ Books Header ============ */
-.books-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:12px;
-}
-.books-header h2{
-  margin:0;
-  border:none;
-  padding:0;
-}
-.books-actions{
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
-}
-.books-actions button{
-  margin:0;
-}
-
-/* Back button style */
-#booksFormView > button.gray,
-#customersFormView > button.gray{
-  margin:0 0 12px 0;
-}
-
-/* Books table */
-.books-table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:13px;
-  margin-top:8px;
-}
-.books-table th,
-.books-table td{
-  padding:12px 8px;
-  border-bottom:1px solid var(--cream-dark);
-  text-align:right;
-}
-.books-table th{
-  background:var(--cream);
-  color:var(--brown-dark);
-  font-weight:700;
-  font-size:12px;
-}
-.books-table tr{
-  cursor:pointer;
-  transition:.15s;
-}
-.books-table tr:hover{
-  background:var(--cream);
-}
-.books-table td.book-title{
-  font-weight:700;
-  color:var(--brown-dark);
-}
-.books-table td.book-publisher{
-  color:var(--muted);
-  font-size:12px;
-}
-.books-table td.book-price{
-  color:var(--gold-dark);
-  font-weight:700;
-}
-.books-table .edit-icon{
-  background:transparent;
-  border:1px solid var(--gold);
-  color:var(--gold-dark);
-  padding:6px 10px;
-  border-radius:8px;
-  font-size:14px;
-  cursor:pointer;
-  margin:0;
-}
-.books-table .edit-icon:hover{
-  background:var(--gold);
-  color:#fff;
-}
-
-/* Categories */
-#categoriesList{margin-top:12px}
-.category-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px 12px;
-  background:var(--cream);
-  border-radius:8px;
-  margin-bottom:6px;
-  border-right:3px solid var(--gold);
-}
-.category-item span{
-  font-weight:700;
-  color:var(--brown-dark);
-}
-.category-item .cat-actions{
-  display:flex;
-  gap:4px;
-}
-.category-item button{
-  padding:4px 8px;
-  font-size:11px;
-  margin:0;
-}
-
-/* Dark Mode for Books */
-body.dark-mode .books-table th{background:#14110c;color:#d4b483}
-body.dark-mode .books-table td{border-bottom-color:#2d2620}
-body.dark-mode .books-table tr:hover{background:#1f1a12}
-body.dark-mode .books-table td.book-title{color:#f5f0e6}
-body.dark-mode .category-item{background:#1f1a12}
-body.dark-mode .category-item span{color:#d4b483}
-
-/* Mobile */
-@media(max-width:600px){
-  .books-header{
-    flex-direction:column;
-    align-items:stretch;
-  }
-  .books-actions{
-    justify-content:space-between;
-  }
-  .books-actions button{
-    flex:1;
-  }
-  .books-table thead{display:none;}
-  .books-table,
-  .books-table tbody,
-  .books-table tr,
-  .books-table td{
-    display:block;
-    width:100%;
-  }
-  .books-table tr{
-    background:#fff;
-    border-radius:10px;
-    padding:12px;
-    margin-bottom:10px;
-    box-shadow:0 2px 6px rgba(93,74,47,.08);
-    border-right:3px solid var(--gold);
-    position:relative;
-  }
-  body.dark-mode .books-table tr{background:#1f1a12}
-  .books-table td{
-    padding:4px 0;
-    border:none;
-    text-align:right;
-  }
-  .books-table td.book-title{font-size:15px;margin-bottom:4px}
-  .books-table .edit-icon{
-    position:absolute;
-    top:10px;
-    left:10px;
-  }
-}
-  
 /* ============ Welcome Section ============ */
 .welcome-section{
   background:linear-gradient(135deg,#fff,var(--cream));
@@ -548,9 +389,12 @@ body.dark-mode .category-item span{color:#d4b483}
   font-weight:700;
   font-size:12px;
 }
+.books-table tr{
+  cursor:pointer;
+  transition:.15s;
+}
 .books-table tr:hover{
   background:var(--cream);
-  cursor:pointer;
 }
 .books-table td.book-title{
   font-weight:700;
@@ -696,6 +540,7 @@ body.dark-mode #totalsBox{background:#14110c !important;border-color:#b8935a !im
 </head>
 <body>
 
+  
 <div class="header">
   <h1><img src="lamp.jpg" alt="مشكاة" style="height:70px;vertical-align:middle;margin-left:8px">مكتبة مشكاة</h1>
   <p>ميراث النبوة وزاد الأمة</p>
@@ -710,6 +555,7 @@ body.dark-mode #totalsBox{background:#14110c !important;border-color:#b8935a !im
   <div class="tab" onclick="showTab('reports',event)">📊 التقارير</div>
 </div>
 
+<!-- ============ الرئيسية ============ -->
 <div id="home" class="page">
   <button class="dark-toggle" onclick="toggleDark()" title="الوضع الليلي">🌙</button>
   <div class="stat-grid" id="stats"></div>
@@ -738,6 +584,7 @@ body.dark-mode #totalsBox{background:#14110c !important;border-color:#b8935a !im
   </div>
 </div>
 
+<!-- ============ الكتب ============ -->
 <div id="books" class="page" style="display:none">
   
   <!-- عرض 1: قائمة الكتب -->
@@ -807,27 +654,66 @@ body.dark-mode #totalsBox{background:#14110c !important;border-color:#b8935a !im
   </div>
 
 </div>
-  
+
+<!-- ============ العملاء ============ -->
 <div id="customers" class="page" style="display:none">
-  <div class="card">
-    <h2>➕ إضافة عميل جديد</h2>
-    <div class="row">
-      <div><label>اسم العميل *</label><input id="cName"></div>
-      <div><label>رقم الجوال</label><input id="cPhone"></div>
+  
+  <!-- عرض 1: قائمة العملاء -->
+  <div id="customersListView" class="card">
+    <div class="books-header">
+      <h2>👥 قائمة العملاء</h2>
+      <div class="books-actions">
+        <button class="gold small" onclick="openCustomerForm()">➕ إضافة عميل</button>
+      </div>
     </div>
-    <div class="row">
-      <div><label>البريد الإلكتروني</label><input id="cEmail"></div>
-      <div><label>ملاحظات</label><input id="cNotes"></div>
-    </div>
-    <button class="gold" onclick="addCustomer()">💾 حفظ العميل</button>
-  </div>
-  <div class="card">
-    <h2>👥 قائمة العملاء</h2>
+    
+    <hr style="margin:12px 0;border:none;border-top:1px dashed var(--cream-dark)">
+    
     <input id="customersSearch" placeholder="🔍 ابحث بالاسم أو الجوال..." oninput="renderCustomers()">
     <div id="customersList"></div>
   </div>
+
+  <!-- عرض 2: نموذج العميل -->
+  <div id="customersFormView" class="card" style="display:none">
+    <button class="gray small" onclick="closeCustomerForm()">⬅️ رجوع للقائمة</button>
+    
+    <h2 id="customerFormTitle" style="margin-top:12px">➕ عميل جديد</h2>
+    <input type="hidden" id="cId">
+    
+    <div class="row">
+      <div><label>اسم العميل *</label><input id="cName" placeholder="مثال: أحمد محمد"></div>
+      <div><label>رقم الجوال</label><input id="cPhone" placeholder="مثال: 01012345678"></div>
+    </div>
+    
+    <div class="row">
+      <div><label>رقم جوال ثاني</label><input id="cPhone2" placeholder="اختياري"></div>
+    </div>
+    
+    <div class="row">
+      <div><label>العنوان</label><input id="cAddress" placeholder="مثال: 15 شارع النيل"></div>
+      <div><label>المحافظة / المنطقة</label><input id="cCity" placeholder="مثال: القاهرة"></div>
+    </div>
+    
+    <div class="row">
+      <div><label>ملاحظات</label><input id="cNotes" placeholder="اختياري"></div>
+    </div>
+    
+    <hr style="margin:16px 0;border:none;border-top:1px dashed var(--cream-dark)">
+    
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <div>
+        <button class="gold" onclick="saveCustomer()">💾 حفظ</button>
+        <button class="gray" onclick="closeCustomerForm()">✖️ إلغاء</button>
+      </div>
+      <div id="deleteCustomerBtn" style="display:none">
+        <button class="danger" onclick="deleteCurrentCustomer()">🗑️ حذف العميل</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
+<!-- ============ فاتورة جديدة ============ -->
 <div id="newInvoice" class="page" style="display:none">
   <div class="card">
     <h2>🧾 فاتورة جديدة</h2>
@@ -855,6 +741,7 @@ body.dark-mode #totalsBox{background:#14110c !important;border-color:#b8935a !im
   <div id="invoiceOutput"></div>
 </div>
 
+<!-- ============ السجل ============ -->
 <div id="invoices" class="page" style="display:none">
   <div class="card">
     <h2>🧾 سجل الفواتير</h2>
@@ -863,6 +750,7 @@ body.dark-mode #totalsBox{background:#14110c !important;border-color:#b8935a !im
   </div>
 </div>
 
+<!-- ============ التقارير ============ -->
 <div id="reports" class="page" style="display:none">
   <div class="card">
     <h2>📊 التقارير</h2>
@@ -878,6 +766,7 @@ body.dark-mode #totalsBox{background:#14110c !important;border-color:#b8935a !im
 </div>
 
 <div id="toast" class="toast"></div>
+
 <script>
 
   // ============ Supabase ============
@@ -916,8 +805,8 @@ function showTab(id, e) {
   document.getElementById(id).style.display = 'block';
   if (e && e.target) e.target.classList.add('active');
   if (id === 'home') renderHome();
-if (id === 'books') { renderBooks(); switchBooksView('list'); }
-  if (id === 'customers') renderCustomers();
+  if (id === 'books') { renderBooks(); switchBooksView('list'); }
+  if (id === 'customers') { renderCustomers(); switchCustomersView('list'); }
   if (id === 'invoices') renderInvoices();
   if (id === 'newInvoice') initNewInvoice();
 }
@@ -933,6 +822,10 @@ async function loadAll() {
   customers = c.data || [];
   invoices = inv.data || [];
 }
+
+// ============================================================
+// ============ BOOKS ============
+// ============================================================
 
 // ============ Categories ============
 async function loadCategories() {
@@ -1015,22 +908,32 @@ function renderCategoriesSelect() {
   if (current) sel.value = current;
 }
 
-// ============ Book Form ============
-function toggleBookForm() {
-  const form = document.getElementById('bookForm');
-  const isHidden = form.style.display === 'none' || !form.style.display;
-  if (isHidden) {
-    resetBookForm();
-    form.style.display = 'block';
-    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+// ============ Books Views ============
+function switchBooksView(view) {
+  const listView = document.getElementById('booksListView');
+  const formView = document.getElementById('booksFormView');
+  if (!listView || !formView) return;
+  if (view === 'list') {
+    listView.style.display = 'block';
+    formView.style.display = 'none';
   } else {
-    closeBookForm();
+    listView.style.display = 'none';
+    formView.style.display = 'block';
   }
 }
 
-function closeBookForm() {
-  document.getElementById('bookForm').style.display = 'none';
+function openBookForm() {
   resetBookForm();
+  document.getElementById('bookFormTitle').textContent = '➕ كتاب جديد';
+  document.getElementById('deleteBookBtn').style.display = 'none';
+  switchBooksView('form');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function closeBookForm() {
+  resetBookForm();
+  switchBooksView('list');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function resetBookForm() {
@@ -1039,7 +942,7 @@ function resetBookForm() {
     if (el) el.value = '';
   });
   document.getElementById('bCategory').value = '';
-  document.getElementById('deleteBookBtn').style.display = 'none';
+  document.getElementById('bAlert').value = 3;
 }
 
 function editBook(id) {
@@ -1054,9 +957,10 @@ function editBook(id) {
   document.getElementById('bCost').value = b.base_cost || '';
   document.getElementById('bStock').value = b.stock || '';
   document.getElementById('bAlert').value = b.low_stock_alert || 3;
+  document.getElementById('bookFormTitle').textContent = '✏️ تعديل كتاب';
   document.getElementById('deleteBookBtn').style.display = 'block';
-  document.getElementById('bookForm').style.display = 'block';
-  document.getElementById('bookForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  switchBooksView('form');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 async function saveBook() {
@@ -1083,8 +987,8 @@ async function saveBook() {
   }
   if (error) return toast('خطأ: ' + error.message, 'var(--red)');
   toast('✅ تم الحفظ');
-  closeBookForm();
   await loadAll();
+  closeBookForm();
   renderBooks();
 }
 
@@ -1095,8 +999,8 @@ async function deleteCurrentBook() {
   if (!confirm('تأكيد أخير — لا يمكن التراجع!')) return;
   await sb.from('books').delete().eq('id', id);
   toast('تم الحذف');
-  closeBookForm();
   await loadAll();
+  closeBookForm();
   renderBooks();
 }
 
@@ -1118,9 +1022,9 @@ function renderBooks() {
   let html = '<table class="books-table"><thead><tr><th>عنوان الكتاب</th><th>دار النشر</th><th>سعر البيع</th><th></th></tr></thead><tbody>';
   list.forEach(b => {
     html += `<tr onclick="editBook('${b.id}')">
-      <td class="book-title" data-label="الكتاب">${b.title}</td>
-      <td class="book-publisher" data-label="دار النشر">${b.publisher || '—'}</td>
-      <td class="book-price" data-label="السعر">${fmt(b.sell_price)} ج.م</td>
+      <td class="book-title">${b.title}</td>
+      <td class="book-publisher">${b.publisher || '—'}</td>
+      <td class="book-price">${fmt(b.sell_price)} ج.م</td>
       <td><button class="edit-icon" onclick="event.stopPropagation();editBook('${b.id}')">✏️</button></td>
     </tr>`;
   });
@@ -1128,30 +1032,98 @@ function renderBooks() {
   el.innerHTML = html;
 }
 
-  // ============ Customers ============
-async function addCustomer() {
+// ============================================================
+// ============ CUSTOMERS ============
+// ============================================================
+
+function switchCustomersView(view) {
+  const listView = document.getElementById('customersListView');
+  const formView = document.getElementById('customersFormView');
+  if (!listView || !formView) return;
+  if (view === 'list') {
+    listView.style.display = 'block';
+    formView.style.display = 'none';
+  } else {
+    listView.style.display = 'none';
+    formView.style.display = 'block';
+  }
+}
+
+function openCustomerForm() {
+  resetCustomerForm();
+  document.getElementById('customerFormTitle').textContent = '➕ عميل جديد';
+  document.getElementById('deleteCustomerBtn').style.display = 'none';
+  switchCustomersView('form');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function closeCustomerForm() {
+  resetCustomerForm();
+  switchCustomersView('list');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetCustomerForm() {
+  ['cId','cName','cPhone','cPhone2','cAddress','cCity','cNotes'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+}
+
+function editCustomer(id) {
+  const c = customers.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('cId').value = c.id;
+  document.getElementById('cName').value = c.name || '';
+  document.getElementById('cPhone').value = c.phone || '';
+  document.getElementById('cPhone2').value = c.phone2 || '';
+  document.getElementById('cAddress').value = c.address || '';
+  document.getElementById('cCity').value = c.city || '';
+  document.getElementById('cNotes').value = c.notes || '';
+  document.getElementById('customerFormTitle').textContent = '✏️ تعديل عميل';
+  document.getElementById('deleteCustomerBtn').style.display = 'block';
+  switchCustomersView('form');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function saveCustomer() {
+  const id = document.getElementById('cId').value;
   const name = document.getElementById('cName').value.trim();
   if (!name) return toast('اكتب اسم العميل', 'var(--red)');
-  const customer = {
+  
+  const data = {
     name,
     phone: document.getElementById('cPhone').value.trim(),
-    email: document.getElementById('cEmail').value.trim(),
+    phone2: document.getElementById('cPhone2').value.trim(),
+    address: document.getElementById('cAddress').value.trim(),
+    city: document.getElementById('cCity').value.trim(),
     notes: document.getElementById('cNotes').value.trim()
   };
-  const { error } = await sb.from('customers').insert(customer);
+
+  let error;
+  if (id) {
+    ({ error } = await sb.from('customers').update(data).eq('id', id));
+  } else {
+    ({ error } = await sb.from('customers').insert(data));
+  }
   if (error) return toast('خطأ: ' + error.message, 'var(--red)');
-  toast('✅ تم حفظ العميل');
-  ['cName','cPhone','cEmail','cNotes'].forEach(id => document.getElementById(id).value = '');
+  toast('✅ تم الحفظ');
   await loadAll();
+  closeCustomerForm();
   renderCustomers();
 }
-async function deleteCustomer(id) {
-  if (!confirm('حذف هذا العميل؟')) return;
+
+async function deleteCurrentCustomer() {
+  const id = document.getElementById('cId').value;
+  if (!id) return;
+  if (!confirm('⚠️ حذف هذا العميل نهائياً؟')) return;
   await sb.from('customers').delete().eq('id', id);
   toast('تم الحذف');
   await loadAll();
+  closeCustomerForm();
   renderCustomers();
 }
+
 function customerStats(customerId) {
   const inv = invoices.filter(i => i.customer_id === customerId);
   return {
@@ -1159,6 +1131,7 @@ function customerStats(customerId) {
     total: inv.reduce((a, i) => a + (Number(i.total) || 0), 0)
   };
 }
+
 function renderCustomers() {
   const el = document.getElementById('customersList');
   const search = (document.getElementById('customersSearch').value || '').toLowerCase();
@@ -1166,30 +1139,34 @@ function renderCustomers() {
   if (search) list = customers.filter(c =>
     c.name.toLowerCase().includes(search) ||
     (c.phone || '').includes(search) ||
-    (c.email || '').toLowerCase().includes(search)
+    (c.phone2 || '').includes(search)
   );
-  if (list.length === 0) { el.innerHTML = '<div class="empty">لا يوجد عملاء</div>'; return; }
-  let html = '<table><tr><th>الاسم</th><th>الجوال</th><th>عدد الفواتير</th><th>الإجمالي</th><th></th></tr>';
+  if (list.length === 0) { el.innerHTML = '<div class="empty">لا يوجد عملاء. اضغط "➕ إضافة عميل"</div>'; return; }
+  let html = '<table class="books-table"><thead><tr><th>الاسم</th><th>الجوال</th><th>عدد الفواتير</th><th>الإجمالي</th><th></th></tr></thead><tbody>';
   list.forEach(c => {
     const s = customerStats(c.id);
-    html += `<tr>
-      <td><b>${c.name}</b>${c.email ? '<br><small style="color:var(--muted)">' + c.email + '</small>' : ''}</td>
-      <td>${c.phone || '-'}</td>
+    html += `<tr onclick="editCustomer('${c.id}')">
+      <td class="book-title">${c.name}</td>
+      <td>${c.phone || '—'}</td>
       <td><span class="badge gold">${s.count}</span></td>
-      <td style="color:var(--brown-dark);font-weight:700">${fmt(s.total)} ج.م</td>
-      <td class="actions"><button class="danger small" onclick="deleteCustomer('${c.id}')">حذف</button></td>
+      <td class="book-price">${fmt(s.total)} ج.م</td>
+      <td><button class="edit-icon" onclick="event.stopPropagation();editCustomer('${c.id}')">✏️</button></td>
     </tr>`;
   });
-  html += '</table>';
+  html += '</tbody></table>';
   el.innerHTML = html;
 }
 
-// ============ Invoice ============
+// ============================================================
+// ============ INVOICES ============
+// ============================================================
+
 function initNewInvoice() {
   renderSelectedCustomer();
   renderItems();
   updateTotals();
 }
+
 function searchCustomer() {
   const q = document.getElementById('invCustomerSearch').value.toLowerCase().trim();
   const box = document.getElementById('customerResults');
@@ -1208,16 +1185,19 @@ function searchCustomer() {
   html += '</div>';
   box.innerHTML = html;
 }
+
 function selectCustomer(id) {
   currentInvoice.customer = customers.find(c => c.id === id);
   document.getElementById('invCustomerSearch').value = '';
   document.getElementById('customerResults').innerHTML = '';
   renderSelectedCustomer();
 }
+
 function useWalkIn() {
   currentInvoice.customer = { id: null, name: 'عميل نقدي' };
   renderSelectedCustomer();
 }
+
 async function quickAddCustomer() {
   const searchBox = document.getElementById('invCustomerSearch');
   const name = prompt('اسم العميل الجديد:', searchBox.value || '');
@@ -1229,6 +1209,7 @@ async function quickAddCustomer() {
   selectCustomer(data.id);
   toast('✅ تم إضافة العميل');
 }
+
 function renderSelectedCustomer() {
   const el = document.getElementById('selectedCustomer');
   if (!currentInvoice.customer) { el.innerHTML = ''; return; }
@@ -1239,18 +1220,22 @@ function renderSelectedCustomer() {
     ${c.id ? `<br><small style="color:var(--muted)">عدد فواتيره: ${s.count} | إجمالي مشترياته: ${fmt(s.total)} ج.م</small>` : ''}
   </div>`;
 }
+
 function addItem() {
   currentInvoice.items.push({ book_id: '', title: '', price: 0, cost: 0, qty: 1 });
   renderItems();
 }
+
 function removeItem(idx) {
   currentInvoice.items.splice(idx, 1);
   renderItems();
 }
+
 function updateItem(idx, field, value) {
   currentInvoice.items[idx][field] = value;
   updateTotals();
 }
+
 function renderItems() {
   const el = document.getElementById('itemsList');
   if (currentInvoice.items.length === 0) {
@@ -1271,6 +1256,7 @@ function renderItems() {
   });
   el.innerHTML = html;
 }
+
 function onBookSelect(idx, bookId) {
   const book = books.find(b => b.id === bookId);
   if (!book) return;
@@ -1280,6 +1266,7 @@ function onBookSelect(idx, bookId) {
   currentInvoice.items[idx].cost = Number(book.base_cost) || 0;
   renderItems();
 }
+
 function calcTotals() {
   const subtotal = currentInvoice.items.reduce((a, i) => a + (i.price * i.qty), 0);
   const shipping = parseFloat(document.getElementById('invShipping').value) || 0;
@@ -1288,6 +1275,7 @@ function calcTotals() {
   const profit = subtotal - totalCost;
   return { subtotal, shipping, total, totalCost, profit };
 }
+
 function updateTotals() {
   const t = calcTotals();
   document.getElementById('totalsBox').innerHTML = `
@@ -1297,6 +1285,7 @@ function updateTotals() {
     <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--green)"><span>الربح المتوقع:</span><b>${fmt(t.profit)} ج.م</b></div>
   `;
 }
+
 async function saveInvoice() {
   if (!currentInvoice.customer) return toast('اختر عميل أو "عميل نقدي"', 'var(--red)');
   if (currentInvoice.items.length === 0) return toast('أضف كتاب واحد على الأقل', 'var(--red)');
@@ -1341,6 +1330,7 @@ async function saveInvoice() {
   await loadAll();
   toast('✅ تم حفظ الفاتورة');
 }
+
 function showInvoiceForPrint(inv, items) {
   const el = document.getElementById('invoiceOutput');
   el.innerHTML = `
@@ -1376,6 +1366,7 @@ function showInvoiceForPrint(inv, items) {
   `;
   el.scrollIntoView({ behavior: 'smooth' });
 }
+
 function resetInvoice() {
   currentInvoice = { customer: null, items: [] };
   document.getElementById('invCustomerSearch').value = '';
@@ -1387,6 +1378,7 @@ function resetInvoice() {
   renderItems();
   updateTotals();
 }
+
 function renderInvoices() {
   const el = document.getElementById('invoicesList');
   const search = (document.getElementById('invoicesSearch').value || '').toLowerCase();
@@ -1410,7 +1402,10 @@ function renderInvoices() {
   el.innerHTML = html;
 }
 
-// ============ Home ============
+// ============================================================
+// ============ HOME ============
+// ============================================================
+
 function renderHome() {
   const todayStr = new Date().toDateString();
   const monthStr = new Date().getMonth();
@@ -1440,6 +1435,7 @@ function resetReportDates() {
   document.getElementById('reportTo').value = '';
   document.getElementById('reportOutput').innerHTML = '';
 }
+
 function getFilteredInvoices() {
   const from = document.getElementById('reportFrom').value;
   const to = document.getElementById('reportTo').value;
@@ -1448,6 +1444,7 @@ function getFilteredInvoices() {
   if (to) list = list.filter(i => new Date(i.created_at) <= new Date(to + 'T23:59:59'));
   return list;
 }
+
 function generateReport() {
   const list = getFilteredInvoices();
   if (list.length === 0) {
@@ -1482,13 +1479,14 @@ function generateReport() {
     </div>
   `;
 }
+
 function exportReport() {
   const list = getFilteredInvoices();
   if (list.length === 0) return toast('لا توجد بيانات للتصدير', 'var(--red)');
   let csv = 'رقم الفاتورة,التاريخ,العميل,الإجمالي,الشحن,التكلفة,الربح\n';
   list.forEach(i => {
     csv += `${i.invoice_number},${formatDate(i.created_at)},${i.customer_name},${i.total},${i.shipping},${i.total_cost},${i.profit}\n`;
-  });
+   });
   const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -1497,7 +1495,10 @@ function exportReport() {
   a.click();
 }
 
-// ============ Welcome Section ============
+// ============================================================
+// ============ WELCOME SECTION ============
+// ============================================================
+
 const AYAT = [
   { text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", ref: "الفاتحة: 1" },
   { text: "وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا", ref: "الطلاق: 2" },
@@ -1612,7 +1613,9 @@ function initDarkMode() {
   }
 }
 
-// ============ Init ============
+// ============================================================
+// ============ INIT ============
+// ============================================================
 (async function init() {
   await loadAll();
   await loadCategories();
@@ -1625,4 +1628,3 @@ function initDarkMode() {
 </script>
 </body>
 </html>
-  
