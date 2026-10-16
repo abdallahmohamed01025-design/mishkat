@@ -251,6 +251,165 @@ tr:hover{background:var(--cream)}
 }
 .toast.show{opacity:1}
 
+  /* ============ Books Header ============ */
+.books-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:12px;
+}
+.books-header h2{
+  margin:0;
+  border:none;
+  padding:0;
+}
+.books-actions{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.books-actions button{
+  margin:0;
+}
+
+/* Back button style */
+#booksFormView > button.gray,
+#customersFormView > button.gray{
+  margin:0 0 12px 0;
+}
+
+/* Books table */
+.books-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+  margin-top:8px;
+}
+.books-table th,
+.books-table td{
+  padding:12px 8px;
+  border-bottom:1px solid var(--cream-dark);
+  text-align:right;
+}
+.books-table th{
+  background:var(--cream);
+  color:var(--brown-dark);
+  font-weight:700;
+  font-size:12px;
+}
+.books-table tr{
+  cursor:pointer;
+  transition:.15s;
+}
+.books-table tr:hover{
+  background:var(--cream);
+}
+.books-table td.book-title{
+  font-weight:700;
+  color:var(--brown-dark);
+}
+.books-table td.book-publisher{
+  color:var(--muted);
+  font-size:12px;
+}
+.books-table td.book-price{
+  color:var(--gold-dark);
+  font-weight:700;
+}
+.books-table .edit-icon{
+  background:transparent;
+  border:1px solid var(--gold);
+  color:var(--gold-dark);
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:14px;
+  cursor:pointer;
+  margin:0;
+}
+.books-table .edit-icon:hover{
+  background:var(--gold);
+  color:#fff;
+}
+
+/* Categories */
+#categoriesList{margin-top:12px}
+.category-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 12px;
+  background:var(--cream);
+  border-radius:8px;
+  margin-bottom:6px;
+  border-right:3px solid var(--gold);
+}
+.category-item span{
+  font-weight:700;
+  color:var(--brown-dark);
+}
+.category-item .cat-actions{
+  display:flex;
+  gap:4px;
+}
+.category-item button{
+  padding:4px 8px;
+  font-size:11px;
+  margin:0;
+}
+
+/* Dark Mode for Books */
+body.dark-mode .books-table th{background:#14110c;color:#d4b483}
+body.dark-mode .books-table td{border-bottom-color:#2d2620}
+body.dark-mode .books-table tr:hover{background:#1f1a12}
+body.dark-mode .books-table td.book-title{color:#f5f0e6}
+body.dark-mode .category-item{background:#1f1a12}
+body.dark-mode .category-item span{color:#d4b483}
+
+/* Mobile */
+@media(max-width:600px){
+  .books-header{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .books-actions{
+    justify-content:space-between;
+  }
+  .books-actions button{
+    flex:1;
+  }
+  .books-table thead{display:none;}
+  .books-table,
+  .books-table tbody,
+  .books-table tr,
+  .books-table td{
+    display:block;
+    width:100%;
+  }
+  .books-table tr{
+    background:#fff;
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:10px;
+    box-shadow:0 2px 6px rgba(93,74,47,.08);
+    border-right:3px solid var(--gold);
+    position:relative;
+  }
+  body.dark-mode .books-table tr{background:#1f1a12}
+  .books-table td{
+    padding:4px 0;
+    border:none;
+    text-align:right;
+  }
+  .books-table td.book-title{font-size:15px;margin-bottom:4px}
+  .books-table .edit-icon{
+    position:absolute;
+    top:10px;
+    left:10px;
+  }
+}
+  
 /* ============ Welcome Section ============ */
 .welcome-section{
   background:linear-gradient(135deg,#fff,var(--cream));
@@ -580,43 +739,17 @@ body.dark-mode #totalsBox{background:#14110c !important;border-color:#b8935a !im
 </div>
 
 <div id="books" class="page" style="display:none">
-  <div class="card">
+  
+  <!-- عرض 1: قائمة الكتب -->
+  <div id="booksListView" class="card">
     <div class="books-header">
       <h2>📖 قائمة الكتب</h2>
       <div class="books-actions">
-        <button class="gold small" onclick="toggleBookForm()">➕ إضافة كتاب</button>
+        <button class="gold small" onclick="openBookForm()">➕ إضافة كتاب</button>
         <button class="gray small" onclick="toggleCategoriesPanel()">🏷️ التصنيفات</button>
       </div>
     </div>
     
-    <div id="bookForm" style="display:none">
-      <hr style="margin:12px 0;border:none;border-top:1px dashed var(--cream-dark)">
-      <h2>➕ كتاب جديد</h2>
-      <input type="hidden" id="bId">
-      <div class="row">
-        <div><label>عنوان الكتاب *</label><input id="bTitle"></div>
-        <div><label>المؤلف</label><input id="bAuthor"></div>
-      </div>
-      <div class="row">
-        <div><label>دار النشر</label><input id="bPublisher"></div>
-        <div><label>التصنيف</label><select id="bCategory"></select></div>
-      </div>
-      <div class="row">
-        <div><label>سعر البيع (ج.م) *</label><input id="bPrice" type="number" placeholder="0"></div>
-        <div><label>تكلفة الكتاب (ج.م)</label><input id="bCost" type="number" placeholder="0"></div>
-        <div><label>الكمية بالمخزون</label><input id="bStock" type="number" placeholder="0"></div>
-      </div>
-      <div class="row">
-        <div><label>تنبيه عند وصول المخزون لـ</label><input id="bAlert" type="number" placeholder="3"></div>
-        <div id="deleteBookBtn" style="display:none">
-          <label>إجراءات</label>
-          <button class="danger" onclick="deleteCurrentBook()">🗑️ حذف الكتاب</button>
-        </div>
-      </div>
-      <button class="gold" onclick="saveBook()">💾 حفظ</button>
-      <button class="gray" onclick="closeBookForm()">✖️ إلغاء</button>
-    </div>
-
     <div id="categoriesPanel" style="display:none">
       <hr style="margin:12px 0;border:none;border-top:1px dashed var(--cream-dark)">
       <h2>🏷️ إدارة التصنيفات</h2>
@@ -632,8 +765,49 @@ body.dark-mode #totalsBox{background:#14110c !important;border-color:#b8935a !im
     <input id="booksSearch" placeholder="🔍 ابحث عن كتاب أو مؤلف أو دار نشر..." oninput="renderBooks()">
     <div id="booksList"></div>
   </div>
-</div>
 
+  <!-- عرض 2: نموذج الكتاب -->
+  <div id="booksFormView" class="card" style="display:none">
+    <button class="gray small" onclick="closeBookForm()">⬅️ رجوع للقائمة</button>
+    
+    <h2 id="bookFormTitle" style="margin-top:12px">➕ كتاب جديد</h2>
+    <input type="hidden" id="bId">
+    
+    <div class="row">
+      <div><label>عنوان الكتاب *</label><input id="bTitle" placeholder="مثال: صحيح البخاري"></div>
+      <div><label>المؤلف</label><input id="bAuthor" placeholder="مثال: الإمام البخاري"></div>
+    </div>
+    
+    <div class="row">
+      <div><label>دار النشر</label><input id="bPublisher" placeholder="مثال: دار الفكر"></div>
+      <div><label>التصنيف</label><select id="bCategory"></select></div>
+    </div>
+    
+    <div class="row">
+      <div><label>سعر البيع (ج.م) *</label><input id="bPrice" type="number" placeholder="0"></div>
+      <div><label>تكلفة الكتاب (ج.م)</label><input id="bCost" type="number" placeholder="0"></div>
+      <div><label>الكمية بالمخزون</label><input id="bStock" type="number" placeholder="0"></div>
+    </div>
+    
+    <div class="row">
+      <div><label>تنبيه عند وصول المخزون لـ</label><input id="bAlert" type="number" placeholder="3" value="3"></div>
+    </div>
+    
+    <hr style="margin:16px 0;border:none;border-top:1px dashed var(--cream-dark)">
+    
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <div>
+        <button class="gold" onclick="saveBook()">💾 حفظ</button>
+        <button class="gray" onclick="closeBookForm()">✖️ إلغاء</button>
+      </div>
+      <div id="deleteBookBtn" style="display:none">
+        <button class="danger" onclick="deleteCurrentBook()">🗑️ حذف الكتاب</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+  
 <div id="customers" class="page" style="display:none">
   <div class="card">
     <h2>➕ إضافة عميل جديد</h2>
@@ -742,7 +916,7 @@ function showTab(id, e) {
   document.getElementById(id).style.display = 'block';
   if (e && e.target) e.target.classList.add('active');
   if (id === 'home') renderHome();
-  if (id === 'books') { renderBooks(); }
+if (id === 'books') { renderBooks(); switchBooksView('list'); }
   if (id === 'customers') renderCustomers();
   if (id === 'invoices') renderInvoices();
   if (id === 'newInvoice') initNewInvoice();
