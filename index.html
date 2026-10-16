@@ -251,7 +251,184 @@ tr:hover{background:var(--cream)}
 }
 .toast.show{opacity:1}
 
-/* ============ Welcome Section ============ */
+/* ============ Books Page ============ */
+.books-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:12px;
+}
+.books-header h2{
+  margin:0;
+  border:none;
+  padding:0;
+}
+.books-actions{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.books-actions button{
+  margin:0;
+}
+
+/* قائمة الكتب - جدول مبسط */
+.books-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+  margin-top:8px;
+}
+.books-table th,
+.books-table td{
+  padding:12px 8px;
+  border-bottom:1px solid var(--cream-dark);
+  text-align:right;
+}
+.books-table th{
+  background:var(--cream);
+  color:var(--brown-dark);
+  font-weight:700;
+  font-size:12px;
+}
+.books-table tr:hover{
+  background:var(--cream);
+  cursor:pointer;
+}
+.books-table td.book-title{
+  font-weight:700;
+  color:var(--brown-dark);
+}
+.books-table td.book-publisher{
+  color:var(--muted);
+  font-size:12px;
+}
+.books-table td.book-price{
+  color:var(--gold-dark);
+  font-weight:700;
+}
+.books-table .edit-icon{
+  background:transparent;
+  border:1px solid var(--gold);
+  color:var(--gold-dark);
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:14px;
+  cursor:pointer;
+  margin:0;
+}
+.books-table .edit-icon:hover{
+  background:var(--gold);
+  color:#fff;
+}
+
+/* التصنيفات */
+#categoriesList{
+  margin-top:12px;
+}
+.category-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 12px;
+  background:var(--cream);
+  border-radius:8px;
+  margin-bottom:6px;
+  border-right:3px solid var(--gold);
+}
+.category-item span{
+  font-weight:700;
+  color:var(--brown-dark);
+}
+.category-item .cat-actions{
+  display:flex;
+  gap:4px;
+}
+.category-item button{
+  padding:4px 8px;
+  font-size:11px;
+  margin:0;
+}
+
+/* Dark Mode for Books */
+body.dark-mode .books-table th{
+  background:#14110c;
+  color:#d4b483;
+}
+body.dark-mode .books-table td{
+  border-bottom-color:#2d2620;
+}
+body.dark-mode .books-table tr:hover{
+  background:#1f1a12;
+}
+body.dark-mode .books-table td.book-title{
+  color:#f5f0e6;
+}
+body.dark-mode .category-item{
+  background:#1f1a12;
+  color:#f5f0e6;
+}
+body.dark-mode .category-item span{
+  color:#d4b483;
+}
+
+/* Mobile: الجداول تتحول لبطاقات */
+@media(max-width:600px){
+  .books-header{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .books-actions{
+    justify-content:space-between;
+  }
+  .books-actions button{
+    flex:1;
+  }
+  .books-table thead{display:none;}
+  .books-table,
+  .books-table tbody,
+  .books-table tr,
+  .books-table td{
+    display:block;
+    width:100%;
+  }
+  .books-table tr{
+    background:#fff;
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:10px;
+    box-shadow:0 2px 6px rgba(93,74,47,.08);
+    border-right:3px solid var(--gold);
+    position:relative;
+  }
+  body.dark-mode .books-table tr{
+    background:#1f1a12;
+  }
+  .books-table td{
+    padding:4px 0;
+    border:none;
+    text-align:right;
+  }
+  .books-table td.book-title{
+    font-size:15px;
+    margin-bottom:4px;
+  }
+  .books-table td .mobile-label{
+    color:var(--muted);
+    font-size:11px;
+    font-weight:600;
+    margin-left:6px;
+  }
+  .books-table .edit-icon{
+    position:absolute;
+    top:10px;
+    left:10px;
+  }
+}
+  
+  /* ============ Welcome Section ============ */
 /* ============ Welcome Section ============ */
 .welcome-section{
   background:linear-gradient(135deg,#fff,var(--cream));
@@ -542,26 +719,55 @@ body.dark-mode .welcome-section .welcome-logo{
 
 <div id="books" class="page" style="display:none">
   <div class="card">
-    <h2>➕ إضافة كتاب جديد</h2>
-    <div class="row">
-      <div><label>عنوان الكتاب *</label><input id="bTitle"></div>
-      <div><label>المؤلف</label><input id="bAuthor"></div>
+    <div class="books-header">
+      <h2>📖 قائمة الكتب</h2>
+      <div class="books-actions">
+        <button class="gold small" onclick="toggleBookForm()">➕ إضافة كتاب</button>
+        <button class="gray small" onclick="toggleCategoriesPanel()">🏷️ التصنيفات</button>
+      </div>
     </div>
-    <div class="row">
-      <div><label>سعر البيع (ج.م)</label><input id="bPrice" type="number" placeholder="0"></div>
-      <div><label>تكلفة الكتاب (ج.م)</label><input id="bCost" type="number" placeholder="0"></div>
-      <div><label>تكلفة تغليف (ج.م)</label><input id="bPack" type="number" placeholder="0"></div>
+    
+    <div id="bookForm" style="display:none">
+      <hr style="margin:12px 0;border:none;border-top:1px dashed var(--cream-dark)">
+      <h2>➕ كتاب جديد</h2>
+      <input type="hidden" id="bId">
+      <div class="row">
+        <div><label>عنوان الكتاب *</label><input id="bTitle"></div>
+        <div><label>المؤلف</label><input id="bAuthor"></div>
+      </div>
+      <div class="row">
+        <div><label>دار النشر</label><input id="bPublisher"></div>
+        <div><label>التصنيف</label><select id="bCategory"></select></div>
+      </div>
+      <div class="row">
+        <div><label>سعر البيع (ج.م) *</label><input id="bPrice" type="number" placeholder="0"></div>
+        <div><label>تكلفة الكتاب (ج.م)</label><input id="bCost" type="number" placeholder="0"></div>
+        <div><label>الكمية بالمخزون</label><input id="bStock" type="number" placeholder="0"></div>
+      </div>
+      <div class="row">
+        <div><label>تنبيه عند وصول المخزون لـ</label><input id="bAlert" type="number" placeholder="3"></div>
+        <div id="deleteBookBtn" style="display:none">
+          <label>إجراءات</label>
+          <button class="danger" onclick="deleteCurrentBook()">🗑️ حذف الكتاب</button>
+        </div>
+      </div>
+      <button class="gold" onclick="saveBook()">💾 حفظ</button>
+      <button class="gray" onclick="closeBookForm()">✖️ إلغاء</button>
     </div>
-    <div class="row">
-      <div><label>الكمية بالمخزون</label><input id="bStock" type="number" placeholder="0"></div>
-      <div><label>تنبيه عند وصول المخزون لـ</label><input id="bAlert" type="number" placeholder="3"></div>
+
+    <div id="categoriesPanel" style="display:none">
+      <hr style="margin:12px 0;border:none;border-top:1px dashed var(--cream-dark)">
+      <h2>🏷️ إدارة التصنيفات</h2>
+      <div class="row">
+        <div><input id="newCategory" placeholder="اسم التصنيف الجديد"></div>
+        <div style="max-width:120px"><button class="gold" onclick="addCategory()">➕ إضافة</button></div>
+      </div>
+      <div id="categoriesList"></div>
     </div>
-    <button class="gold" onclick="addBook()">💾 حفظ الكتاب</button>
-    <button class="gray" onclick="resetBookForm()">🔄 تفريغ</button>
-  </div>
-  <div class="card">
-    <h2>📖 قائمة الكتب</h2>
-    <input id="booksSearch" placeholder="🔍 ابحث عن كتاب..." oninput="renderBooks()">
+
+    <hr style="margin:12px 0;border:none;border-top:1px dashed var(--cream-dark)">
+    
+    <input id="booksSearch" placeholder="🔍 ابحث عن كتاب أو مؤلف أو دار نشر..." oninput="renderBooks()">
     <div id="booksList"></div>
   </div>
 </div>
@@ -1234,14 +1440,229 @@ function initDarkMode() {
     if (btn) btn.textContent = '☀️';
   }
 }
+  // ============ Categories ============
+let categories = [];
+
+async function loadCategories() {
+  const { data } = await sb.from('categories').select('*').order('name');
+  categories = data || [];
+}
+
+function toggleCategoriesPanel() {
+  const panel = document.getElementById('categoriesPanel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  if (panel.style.display === 'block') renderCategories();
+}
+
+async function addCategory() {
+  const name = document.getElementById('newCategory').value.trim();
+  if (!name) return toast('اكتب اسم التصنيف', 'var(--red)');
+  const { error } = await sb.from('categories').insert({ name });
+  if (error) {
+    if (error.message.includes('duplicate')) return toast('التصنيف موجود بالفعل', 'var(--red)');
+    return toast('خطأ: ' + error.message, 'var(--red)');
+  }
+  toast('✅ تم إضافة التصنيف');
+  document.getElementById('newCategory').value = '';
+  await loadCategories();
+  renderCategories();
+  renderCategoriesSelect();
+}
+
+async function deleteCategory(id) {
+  if (!confirm('حذف التصنيف؟ (الكتب لن تُحذف، سيبقى التصنيف فارغاً)')) return;
+  await sb.from('categories').delete().eq('id', id);
+  await sb.from('books').update({ category_id: null }).eq('category_id', id);
+  toast('تم الحذف');
+  await loadCategories();
+  renderCategories();
+  renderCategoriesSelect();
+  await loadAll();
+  renderBooks();
+}
+
+async function renameCategory(id) {
+  const cat = categories.find(c => c.id === id);
+  const newName = prompt('الاسم الجديد:', cat.name);
+  if (!newName || newName === cat.name) return;
+  const { error } = await sb.from('categories').update({ name: newName }).eq('id', id);
+  if (error) return toast('خطأ: ' + error.message, 'var(--red)');
+  toast('✅ تم التعديل');
+  await loadCategories();
+  renderCategories();
+  renderCategoriesSelect();
+}
+
+function renderCategories() {
+  const el = document.getElementById('categoriesList');
+  if (categories.length === 0) {
+    el.innerHTML = '<div class="empty">لا توجد تصنيفات بعد. أضف أول تصنيف 📁</div>';
+    return;
+  }
+  let html = '';
+  categories.forEach(c => {
+    html += `<div class="category-item">
+      <span>📁 ${c.name}</span>
+      <div class="cat-actions">
+        <button class="gold" onclick="renameCategory('${c.id}')">✏️</button>
+        <button class="danger" onclick="deleteCategory('${c.id}')">🗑️</button>
+      </div>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+function renderCategoriesSelect() {
+  const sel = document.getElementById('bCategory');
+  if (!sel) return;
+  const current = sel.value;
+  sel.innerHTML = '<option value="">— بدون تصنيف —</option>';
+  categories.forEach(c => {
+    sel.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+  });
+  if (current) sel.value = current;
+}
+
+function getCategoryName(id) {
+  if (!id) return '';
+  const c = categories.find(x => x.id === id);
+  return c ? c.name : '';
+}
+
+// ============ Book Form ============
+function toggleBookForm() {
+  const form = document.getElementById('bookForm');
+  const isHidden = form.style.display === 'none' || !form.style.display;
+  if (isHidden) {
+    resetBookForm();
+    form.style.display = 'block';
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    closeBookForm();
+  }
+}
+
+function closeBookForm() {
+  document.getElementById('bookForm').style.display = 'none';
+  resetBookForm();
+}
+
+function resetBookForm() {
+  ['bId','bTitle','bAuthor','bPublisher','bPrice','bCost','bStock','bAlert'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('bCategory').value = '';
+  document.getElementById('deleteBookBtn').style.display = 'none';
+}
+
+function editBook(id) {
+  const b = books.find(x => x.id === id);
+  if (!b) return;
+  document.getElementById('bId').value = b.id;
+  document.getElementById('bTitle').value = b.title || '';
+  document.getElementById('bAuthor').value = b.author || '';
+  document.getElementById('bPublisher').value = b.publisher || '';
+  document.getElementById('bCategory').value = b.category_id || '';
+  document.getElementById('bPrice').value = b.sell_price || '';
+  document.getElementById('bCost').value = b.base_cost || '';
+  document.getElementById('bStock').value = b.stock || '';
+  document.getElementById('bAlert').value = b.low_stock_alert || 3;
+  document.getElementById('deleteBookBtn').style.display = 'block';
+  document.getElementById('bookForm').style.display = 'block';
+  document.getElementById('bookForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function saveBook() {
+  const id = document.getElementById('bId').value;
+  const title = document.getElementById('bTitle').value.trim();
+  if (!title) return toast('اكتب عنوان الكتاب', 'var(--red)');
+  
+  const bookData = {
+    title,
+    author: document.getElementById('bAuthor').value.trim(),
+    publisher: document.getElementById('bPublisher').value.trim(),
+    category_id: document.getElementById('bCategory').value || null,
+    sell_price: parseFloat(document.getElementById('bPrice').value) || 0,
+    base_cost: parseFloat(document.getElementById('bCost').value) || 0,
+    stock: parseInt(document.getElementById('bStock').value) || 0,
+    low_stock_alert: parseInt(document.getElementById('bAlert').value) || 3
+  };
+
+  let error;
+  if (id) {
+    ({ error } = await sb.from('books').update(bookData).eq('id', id));
+  } else {
+    ({ error } = await sb.from('books').insert(bookData));
+  }
+  if (error) return toast('خطأ: ' + error.message, 'var(--red)');
+  toast('✅ تم الحفظ');
+  closeBookForm();
+  await loadAll();
+  renderBooks();
+}
+
+async function deleteCurrentBook() {
+  const id = document.getElementById('bId').value;
+  if (!id) return;
+  if (!confirm('⚠️ حذف هذا الكتاب نهائياً؟')) return;
+  if (!confirm('تأكيد أخير — لا يمكن التراجع!')) return;
+  await sb.from('books').delete().eq('id', id);
+  toast('تم الحذف');
+  closeBookForm();
+  await loadAll();
+  renderBooks();
+}
+
+// ============ Render Books ============
+function renderBooks() {
+  const el = document.getElementById('booksList');
+  const search = (document.getElementById('booksSearch').value || '').toLowerCase();
+  let list = books;
+  if (search) {
+    list = books.filter(b =>
+      b.title.toLowerCase().includes(search) ||
+      (b.author || '').toLowerCase().includes(search) ||
+      (b.publisher || '').toLowerCase().includes(search)
+    );
+  }
+  if (list.length === 0) {
+    el.innerHTML = '<div class="empty">لا توجد كتب. اضغط "➕ إضافة كتاب"</div>';
+    return;
+  }
+  let html = '<table class="books-table"><thead><tr><th>عنوان الكتاب</th><th>دار النشر</th><th>سعر البيع</th><th></th></tr></thead><tbody>';
+  list.forEach(b => {
+    html += `<tr onclick="editBook('${b.id}')">
+      <td class="book-title" data-label="الكتاب">${b.title}</td>
+      <td class="book-publisher" data-label="دار النشر">${b.publisher || '—'}</td>
+      <td class="book-price" data-label="السعر">${fmt(b.sell_price)} ج.م</td>
+      <td><button class="edit-icon" onclick="event.stopPropagation();editBook('${b.id}')">✏️</button></td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  el.innerHTML = html;
+}
+
+function renderCategoriesSelect() {
+  const sel = document.getElementById('bCategory');
+  if (!sel) return;
+  const current = sel.value;
+  sel.innerHTML = '<option value="">— بدون تصنيف —</option>';
+  categories.forEach(c => {
+    sel.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+  });
+  if (current) sel.value = current;
+}
   
 // ============ Init ============
 (async function init() {
   await loadAll();
-    renderHome();
-    renderHijriDate();
-    renderDailyContent();
-    initDarkMode();
+  await loadCategories();
+  renderHome();
+  renderHijriDate();
+  renderDailyContent();
+  initDarkMode();
+  renderCategoriesSelect();
 })();
 </script>
 </body>
